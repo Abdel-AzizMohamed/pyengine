@@ -9,7 +9,7 @@
 *.sh
 
 #my ignore
-test.py
+temp.py
 Planning/
 GamePublish/
 *.spec

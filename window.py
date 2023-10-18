@@ -3,11 +3,12 @@ import time
 import os
 import pygame
 
+# pylint: disable=E1101
 #### Pygame Init ####
 pygame.init()
 pygame.mixer.init()
 os.environ['SDL_VIDEO_CENTERED'] = "1"
-os.environ['SDL_VIDEO_WINDOW_POS'] = "100,500"
+os.environ['SDL_VIDEO_WINDOW_POS'] = "1000,500"
 
 
 class Reslution():
@@ -46,7 +47,7 @@ class Reslution():
     def set_grid(self, grid_div):
         """Set the game grid"""
         self.x_ceil = grid_div * 9
-        self.x_ceil = grid_div * 16
+        self.y_ceil = grid_div * 16
 
 
 class FrameRate():

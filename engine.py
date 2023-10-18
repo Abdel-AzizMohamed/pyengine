@@ -3,6 +3,7 @@
 import sys
 import pygame
 
+# pylint: disable=E1101
 ###### My Packges ######
 from window import Window
 
