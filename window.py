@@ -7,12 +7,13 @@ import pygame
 #### Pygame Init ####
 pygame.init()
 pygame.mixer.init()
-os.environ['SDL_VIDEO_CENTERED'] = "1"
-os.environ['SDL_VIDEO_WINDOW_POS'] = "1000,500"
+os.environ["SDL_VIDEO_CENTERED"] = "1"
+os.environ["SDL_VIDEO_WINDOW_POS"] = "1000,500"
 
 
-class Reslution():
+class Reslution:
     """Define the game reslution"""
+
     def __init__(self, size, grid_div):
         """init a new reslution object"""
         self.screen_width = None
@@ -50,10 +51,12 @@ class Reslution():
         self.y_ceil = grid_div * 16
 
 
-class FrameRate():
+class FrameRate:
     """Define the game main clock"""
+
     def __init__(self, fps):
         """Init a new clock object"""
+        self.clock = pygame.time.Clock()
         self.fps = fps
         self.delta_time = None
         self.previous_time = time.time()
@@ -70,17 +73,20 @@ class FrameRate():
 
 class Window(Reslution, FrameRate):
     """Game window object that contains all the window setting"""
-    def __init__(self, title="Engine", size=None, fps=60, grid_div=2, icon=None):
+
+    def __init__(self):
         """Init a new window object"""
-        Reslution.__init__(self, size, grid_div)
-        FrameRate.__init__(self, fps)
+        Reslution.__init__(self, None, 2)
+        FrameRate.__init__(self, 60)
 
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        pygame.display.set_caption(title)
+        pygame.display.set_caption("Engine")
 
-
-        if not icon:
-            icon = "/".join(os.path.abspath(__file__).split("\\")[:-1]) + "/Sprites/icon.png"
-
-        icon = pygame.image.load(icon).convert_alpha()
+        icon_path = (
+            "/".join(os.path.abspath(__file__).split("\\")[:-1]) + "/Sprites/icon.png"
+        )
+        icon = pygame.image.load(icon_path).convert_alpha()
         pygame.display.set_icon(icon)
+
+
+win_obj = Window()
