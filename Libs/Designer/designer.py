@@ -14,6 +14,7 @@ class Designer:
     Attributes:
             elements_classes: Contains all the elements classes
     """
+
     elements_classes = {"PyRect": PyRect}
 
     def __init__(self):
@@ -33,7 +34,7 @@ class Designer:
             ele_class: element class name
             ele_attributes: element attributes (text, color, ...)
         """
-        if type(ele_attributes) != dict:
+        if not isinstance(ele_attributes, dict):
             raise TypeError("ele_attributes should be a dictionary")
 
         ele_group = ele_attributes.get("group")
@@ -41,7 +42,7 @@ class Designer:
 
         if not ele_name or not ele_group:
             raise ValueError("provide Name & Group for the given element")
-        elif self.get_element(ele_name):
+        if self.get_element(ele_name):
             raise ValueError("The given name is already used before")
 
         element = self.elements_classes[ele_class](ele_attributes)
@@ -61,7 +62,14 @@ class Designer:
         Arguments:
             name: name to search for
         """
-        elements = [(key, item) for group in self.game_elements.values() for (key, item) in group.items()]
+        if not isinstance(name, str):
+            raise TypeError("The element name should be string")
+
+        elements = [
+            (key, item)
+            for group in self.game_elements.values()
+            for (key, item) in group.items()
+        ]
         for key, item in elements:
             if key == name:
                 return item
@@ -69,7 +77,9 @@ class Designer:
 
     def draw_group(self):
         """draw elements on screen"""
-        elements = [item for group in self.game_elements.values() for item in group.values()]
+        elements = [
+            item for group in self.game_elements.values() for item in group.values()
+        ]
         for item in elements:
             if item.type == "rect":
                 pygame.draw.rect(win_obj.screen, "#FFFFFF", item.rect)
