@@ -3,7 +3,7 @@ from Libs.Designer.py_attributes import Rectangle
 
 
 class PyRect(Rectangle):
-    """Define a Rect element"""
+    """Define a basic rect shape"""
 
     def __init__(self, attributes):
         """

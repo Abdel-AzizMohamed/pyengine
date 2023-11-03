@@ -22,8 +22,28 @@ def test_create_element():
     assert isinstance(designer.game_elements.get("boxGroup").get("box1"), PyRect)
 
 
-def test_create_element_missing_value():
+def test_create_element_wrong_value():
     """test if a wrong value passed"""
+    designer = Designer()
+
+    wrong_name = {
+        "name": 1,
+        "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
+    }
+    wrong_group = {
+        "group": 1,
+        "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
+    }
+
+    with pytest.raises(ValueError) as _:
+        designer.create_element("PyRect", wrong_name)
+
+    with pytest.raises(ValueError) as _:
+        designer.create_element("PyRect", wrong_group)
+
+
+def test_create_element_missing_value():
+    """test if a missing value passed"""
     designer = Designer()
 
     no_name = {

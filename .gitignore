@@ -14,3 +14,4 @@ Planning/
 GamePublish/
 *.spec
 key
+.vscode
