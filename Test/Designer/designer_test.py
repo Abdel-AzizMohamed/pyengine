@@ -28,17 +28,19 @@ def test_create_element_wrong_value():
 
     wrong_name = {
         "name": 1,
+        "group": "boxGroup",
         "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
     }
     wrong_group = {
+        "name": "box1",
         "group": 1,
         "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
     }
 
-    with pytest.raises(ValueError) as _:
+    with pytest.raises(TypeError) as _:
         designer.create_element("PyRect", wrong_name)
 
-    with pytest.raises(ValueError) as _:
+    with pytest.raises(TypeError) as _:
         designer.create_element("PyRect", wrong_group)
 
 

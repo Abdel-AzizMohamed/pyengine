@@ -43,7 +43,7 @@ class Designer:
         if not ele_name or not ele_group:
             raise ValueError("provide Name & Group for the given element")
         if not isinstance(ele_name, str) or not isinstance(ele_group, str):
-            raise ValueError("Name & Group should be string")
+            raise TypeError("Name & Group should be string")
         if self.get_element(ele_name):
             raise ValueError("The given name is already used before")
 
