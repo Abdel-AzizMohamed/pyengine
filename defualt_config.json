@@ -1,0 +1,9 @@
+{
+    "window": {
+        "size": [0, 0],
+        "grid_div": 2,
+        "fps": 60,
+        "title": "Engine"
+    },
+    "fonts": {}
+}

@@ -1,8 +1,8 @@
 """Contains all the basic ui elements (no images only pygame elements)"""
-from Libs.Designer.py_attributes import Rectangle
+from Libs.Designer.py_attributes import Rectangle, Text
 
 
-class PyRect(Rectangle):
+class PyRect(Rectangle, Text):
     """Define a basic rect shape"""
 
     def __init__(self, attributes):
@@ -17,3 +17,4 @@ class PyRect(Rectangle):
         self.type = "rect"
 
         Rectangle.__init__(self, attributes.get("rect"))
+        Text.__init__(self, attributes.get("text"))

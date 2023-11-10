@@ -1,7 +1,11 @@
 """Define game window that contains windows setting"""
+###### Python Packges ######
 import time
 import os
 import pygame
+
+###### My Packges ######
+from Libs.json_handler import read_json
 
 # pylint: disable=E1101
 #### Pygame Init ####
@@ -33,7 +37,7 @@ class Reslution:
         moniter_width = screen_info.current_w
         moniter_height = screen_info.current_h
 
-        if size is None:
+        if size[0] <= 0 or size[1] <= 0:
             self.screen_width = moniter_width
             self.screen_height = moniter_height
         else:
@@ -74,13 +78,46 @@ class FrameRate:
 class Window(Reslution, FrameRate):
     """Game window object that contains all the window setting"""
 
-    def __init__(self):
-        """Init a new window object"""
-        Reslution.__init__(self, None, 2)
-        FrameRate.__init__(self, 60)
+    def __init__(self, window_data):
+        """
+        Init a new window object
+
+        Arguments:
+            window_data: contains window config (size, title, icon, ...)
+        """
+        if not isinstance(window_data, dict):
+            raise TypeError("window data should be dict")
+
+        size = window_data.get("size")
+        grid_div = window_data.get("grid_div")
+        fps = window_data.get("fps")
+        title = window_data.get("title")
+
+        if size is None:
+            raise ValueError("Provide text for the given element")
+        if not isinstance(size, list):
+            raise TypeError("size should be list")
+
+        if grid_div is None:
+            raise ValueError("Provide grid div for the given element")
+        if not isinstance(grid_div, int):
+            raise TypeError("grid div should be integer")
+
+        if fps is None:
+            raise ValueError("Provide fps for the given element")
+        if not isinstance(fps, int):
+            raise TypeError("fps should be integer")
+
+        if title is None:
+            raise ValueError("Provide title for the given element")
+        if not isinstance(title, str):
+            raise TypeError("title should be string")
+
+        Reslution.__init__(self, size, grid_div)
+        FrameRate.__init__(self, fps)
 
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        pygame.display.set_caption("Engine")
+        pygame.display.set_caption(title)
 
         icon_path = (
             "/".join(os.path.abspath(__file__).split("\\")[:-1]) + "/Sprites/icon.png"
@@ -89,4 +126,4 @@ class Window(Reslution, FrameRate):
         pygame.display.set_icon(icon)
 
 
-win_obj = Window()
+win_obj = Window(read_json("defualt_config.json").get("window"))

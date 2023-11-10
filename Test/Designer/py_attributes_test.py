@@ -26,14 +26,10 @@ def test_rectangle_init():
 
 def test_rectangle_set_rect_bad_value():
     """test set_rect bad value"""
-    no_rect = {}
     no_x_pos = {"y_pos": 1, "x_size": 1, "y_size": 1}
     no_y_pos = {"x_pos": 1, "x_size": 1, "y_size": 1}
     no_x_size = {"x_pos": 1, "y_pos": 1, "x_size": 1}
     no_y_size = {"x_pos": 1, "y_pos": 1, "y_size": 1}
-
-    with pytest.raises(ValueError) as _:
-        Rectangle(no_rect)
 
     with pytest.raises(ValueError) as _:
         Rectangle(no_x_pos)

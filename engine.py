@@ -6,6 +6,7 @@ import pygame
 # pylint: disable=E1101
 ###### My Packges ######
 from window import win_obj
+from Libs.Designer.py_attributes import Text
 
 
 class PyEngine:
@@ -13,6 +14,7 @@ class PyEngine:
 
     def __init__(self):
         """Init Engine Object"""
+        Text.load_fonts()
 
     def mainloop(self, draw_group):
         """Game Mainloop"""
