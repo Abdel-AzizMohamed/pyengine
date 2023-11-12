@@ -5,5 +5,7 @@
         "fps": 60,
         "title": "Engine"
     },
-    "fonts": {}
+    "fonts": {
+        "pixal_35": {"font_path": "fonts/Pixeltype.ttf", "size": 35}
+    }
 }

@@ -15,3 +15,4 @@ GamePublish/
 *.spec
 key
 .vscode
+pseudo/
