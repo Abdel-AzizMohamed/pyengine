@@ -6,6 +6,7 @@ import pygame
 
 ###### My Packges ######
 from Libs.json_handler import read_json
+from Libs.error_handler import data_check
 
 # pylint: disable=E1101
 #### Pygame Init ####
@@ -85,33 +86,17 @@ class Window(Reslution, FrameRate):
         Arguments:
             window_data: contains window config (size, title, icon, ...)
         """
-        if not isinstance(window_data, dict):
-            raise TypeError("window data should be dict")
+        data_check(window_data, dict)
 
         size = window_data.get("size")
         grid_div = window_data.get("grid_div")
         fps = window_data.get("fps")
         title = window_data.get("title")
 
-        if size is None:
-            raise ValueError("Provide text for the given element")
-        if not isinstance(size, list):
-            raise TypeError("size should be list")
-
-        if grid_div is None:
-            raise ValueError("Provide grid div for the given element")
-        if not isinstance(grid_div, int):
-            raise TypeError("grid div should be integer")
-
-        if fps is None:
-            raise ValueError("Provide fps for the given element")
-        if not isinstance(fps, int):
-            raise TypeError("fps should be integer")
-
-        if title is None:
-            raise ValueError("Provide title for the given element")
-        if not isinstance(title, str):
-            raise TypeError("title should be string")
+        data_check(size, list)
+        data_check(grid_div, int)
+        data_check(fps, int)
+        data_check(title, str)
 
         Reslution.__init__(self, size, grid_div)
         FrameRate.__init__(self, fps)

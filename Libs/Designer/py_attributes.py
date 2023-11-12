@@ -5,6 +5,7 @@ import pygame
 ###### My Packges ######
 from window import win_obj
 from Libs.json_handler import read_json
+from Libs.error_handler import data_check
 
 
 class Rectangle:
@@ -21,23 +22,17 @@ class Rectangle:
         Attributes:
             rect_data: given rect data (size, postition)
         """
-        if not isinstance(rect_data, dict):
-            raise TypeError("rect data should be dict")
+        data_check(rect_data, dict)
 
         x_pos = rect_data.get("x_pos")
         y_pos = rect_data.get("y_pos")
         x_size = rect_data.get("x_size")
         y_size = rect_data.get("y_size")
 
-        if x_pos is None or y_pos is None:
-            raise ValueError("Provide x_pos & y_pos for the given element")
-        if not isinstance(x_pos, int) or not isinstance(y_pos, int):
-            raise TypeError("x_pos & y_pos should be integer")
-
-        if x_size is None or y_size is None:
-            raise ValueError("Provide x_size & y_size for the given element")
-        if not isinstance(x_size, int) or not isinstance(y_size, int):
-            raise TypeError("x_size & y_size should be integer")
+        data_check(x_pos, int)
+        data_check(y_pos, int)
+        data_check(x_size, int)
+        data_check(y_size, int)
 
         x_pos = round(rect_data.get("x_pos") * (win_obj.screen_width / win_obj.y_ceil))
         y_pos = round(rect_data.get("y_pos") * (win_obj.screen_height / win_obj.x_ceil))
@@ -73,38 +68,21 @@ class Text:
         Attributes:
             text_data: given text data (color, text, font)
         """
-        if not isinstance(text_data, dict):
-            raise TypeError("text data should be dict")
+        data_check(text_data, dict)
 
         font = text_data.get("font")
         text = text_data.get("text")
         antialias = text_data.get("antialias")
         color = text_data.get("color")
 
-        if text is None:
-            raise ValueError("Provide text for the given element")
-        if not isinstance(text, str):
-            raise TypeError("text should be string")
-
-        if antialias is None:
-            raise ValueError("Provide antialias for the given element")
-        if not isinstance(antialias, bool):
-            raise TypeError("antialias should be boolen")
-
-        if color is None:
-            raise ValueError("Provide color for the given element")
-        if not isinstance(color, str):
-            raise TypeError("color should be string")
-
-        if font is None:
-            raise ValueError("Provide font for the given element")
-        if not isinstance(font, str):
-            raise TypeError("font should be string")
+        data_check(text, str)
+        data_check(antialias, bool)
+        data_check(color, str)
+        data_check(font, str)
 
         font_obj = self.fonts.get(font)
 
-        if font_obj is None:
-            raise ValueError("Provide a valid font")
+        data_check(font_obj, pygame.font.Font)
 
         self.font = font
         self.text = text
@@ -118,22 +96,14 @@ class Text:
         """Loads all game fonts from config file"""
         fonts_file = read_json("defualt_config.json").get("fonts")
 
-        if not isinstance(fonts_file, dict):
-            raise TypeError("fonts data should be dict")
+        data_check(fonts_file, dict)
 
         for name, font in fonts_file.items():
             font_path = font.get("font_path")
             size = font.get("size")
 
-            if font_path is None:
-                raise ValueError("Provide font path for the given element")
-            if not isinstance(font_path, str):
-                raise TypeError("font path should be string")
-
-            if size is None:
-                raise ValueError("Provide size for the given element")
-            if not isinstance(size, int):
-                raise TypeError("size should be integer")
+            data_check(font_path, str)
+            data_check(size, int)
 
             py_font = pygame.font.Font(font_path, size)
             Text.fonts[name] = py_font

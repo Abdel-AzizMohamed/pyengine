@@ -5,6 +5,7 @@ import pygame
 ###### My Packges ######
 from window import win_obj
 from Libs.Designer.py_elements import PyRect
+from Libs.error_handler import data_check
 
 
 class Designer:
@@ -34,18 +35,13 @@ class Designer:
             ele_class: element class name
             ele_attributes: element attributes (text, color, ...)
         """
-        if not isinstance(ele_attributes, dict):
-            raise TypeError("ele_attributes should be a dictionary")
+        data_check(ele_attributes, dict)
 
         ele_group = ele_attributes.get("group")
         ele_name = ele_attributes.get("name")
 
-        if not ele_name or not ele_group:
-            raise ValueError("provide Name & Group for the given element")
-        if not isinstance(ele_name, str) or not isinstance(ele_group, str):
-            raise TypeError("Name & Group should be string")
-        if self.get_element(ele_name):
-            raise ValueError("The given name is already used before")
+        data_check(ele_name, str)
+        data_check(ele_group, str)
 
         element = self.elements_classes[ele_class](ele_attributes)
 
@@ -64,8 +60,7 @@ class Designer:
         Arguments:
             name: name to search for
         """
-        if not isinstance(name, str):
-            raise TypeError("The element name should be string")
+        data_check(name, str)
 
         elements = [
             (key, item)
