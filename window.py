@@ -7,6 +7,7 @@ import pygame
 ###### My Packges ######
 from Libs.json_handler import read_json
 from Libs.error_handler import data_check
+from Libs.path_handler import path_check
 
 # pylint: disable=E1101
 #### Pygame Init ####
@@ -111,4 +112,5 @@ class Window(Reslution, FrameRate):
         pygame.display.set_icon(icon)
 
 
-win_obj = Window(read_json("defualt_config.json").get("window"))
+CONFIG_PATH = path_check("config.json", "defualt_config.json")
+win_obj = Window(read_json(CONFIG_PATH).get("window"))
