@@ -1,4 +1,4 @@
-"""Contains unitest for error_handler file"""
+"""Contains unitest for error_handler moudle"""
 ###### Python Packges ######
 import pytest
 
