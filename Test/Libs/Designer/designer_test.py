@@ -5,6 +5,7 @@ import pytest
 ###### My Packges ######
 from Libs.Designer.designer import Designer
 from Libs.Designer.py_elements import PyRect
+from Libs.Designer.py_attributes import Text
 
 
 def test_create_element():
@@ -15,7 +16,14 @@ def test_create_element():
         "name": "box1",
         "group": "boxGroup",
         "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
+        "text": {
+            "font": "pixal_35",
+            "text": "test",
+            "antialias": False,
+            "color": "#000000",
+        },
     }
+    Text.load_fonts()
 
     designer.create_element("PyRect", rect_attr)
 
@@ -80,7 +88,14 @@ def test_get_element():
         "name": "box1",
         "group": "boxGroup",
         "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
+        "text": {
+            "font": "pixal_35",
+            "text": "test",
+            "antialias": False,
+            "color": "#000000",
+        },
     }
+    Text.load_fonts()
 
     designer.create_element("PyRect", rect_attr)
 
@@ -98,7 +113,14 @@ def test_get_element_wrong_type():
         "name": "box1",
         "group": "boxGroup",
         "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
+        "text": {
+            "font": "pixal_35",
+            "text": "test",
+            "antialias": False,
+            "color": "#000000",
+        },
     }
+    Text.load_fonts()
 
     designer.create_element("PyRect", rect_attr)
 
