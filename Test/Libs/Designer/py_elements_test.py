@@ -5,21 +5,16 @@
 ###### My Packges ######
 from Libs.Designer.py_elements import PyRect
 from Libs.Designer.py_attributes import Text
+from Libs.json_handler import read_json
+
+
+element_print = read_json("blueprint.json")
 
 
 def test_pyrect_init():
     """test init method for PyRect"""
-    attrs = {
-        "name": "box1",
-        "group": "boxGroup",
-        "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
-        "text": {
-            "font": "pixal_35",
-            "text": "test",
-            "antialias": False,
-            "color": "#000000",
-        },
-    }
+    attrs = element_print.get("box")
+
     Text.load_fonts()
     obj = PyRect(attrs)
 

@@ -105,8 +105,8 @@ class Window(Reslution, FrameRate):
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption(title)
 
-        icon_path = (
-            "/".join(os.path.abspath(__file__).split("\\")[:-1]) + "/Sprites/icon.png"
+        icon_path = os.path.join(
+            os.path.dirname(os.path.normpath(__file__)), "Sprites", "icon.png"
         )
         icon = pygame.image.load(icon_path).convert_alpha()
         pygame.display.set_icon(icon)

@@ -1,0 +1,19 @@
+{
+    "window": {
+        "size": [0, 0],
+        "grid_div": 2,
+        "fps": 60,
+        "title": "Engine"
+    },
+    "box": {
+        "name": "box1",
+        "group": "boxGroup",
+        "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1},
+        "text": {
+            "font": "pixal_35",
+            "text": "test",
+            "antialias": false,
+            "color": "#000000"
+        }
+    }
+}

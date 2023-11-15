@@ -6,6 +6,7 @@ import pygame
 from window import win_obj
 from Libs.json_handler import read_json
 from Libs.error_handler import data_check
+from Libs.path_handler import path_check
 
 
 class Rectangle:
@@ -94,7 +95,8 @@ class Text:
     @staticmethod
     def load_fonts():
         """Loads all game fonts from config file"""
-        fonts_file = read_json("defualt_config.json").get("fonts")
+        config_path = path_check("config.json", "defualt_config.json")
+        fonts_file = read_json(config_path).get("fonts")
 
         data_check(fonts_file, dict)
 

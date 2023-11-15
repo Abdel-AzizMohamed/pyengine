@@ -4,6 +4,10 @@ import pytest
 
 ###### My Packges ######
 from window import FrameRate, Reslution, Window
+from Libs.json_handler import read_json
+
+
+element_print = read_json("blueprint.json")
 
 
 def test_framerate_init():
@@ -48,37 +52,46 @@ def test_reslution_set_grid():
 
 def test_window_init():
     """Test window wrong value passed"""
-    attrs = {"size": [0, 0], "grid_div": 2, "fps": 60, "title": "Engine"}
-
-    assert isinstance(Window(attrs), Window)
+    assert isinstance(Window(element_print.get("window")), Window)
 
 
 def test_window_bad_value():
     """Test window wrong value passed"""
-    no_size = {"grid_div": 2, "fps": 60, "title": "Engine"}
-    no_grid = {"size": [0, 0], "fps": 60, "title": "Engine"}
-    no_fps = {"size": [0, 0], "grid_div": 2, "title": "Engine"}
-    no_title = {"size": [0, 0], "grid_div": 2, "fps": 60}
+    no_size = element_print.get("window").copy()
+    del no_size["size"]
+
+    no_grid = element_print.get("window").copy()
+    del no_grid["grid_div"]
+
+    no_fps = element_print.get("window").copy()
+    del no_fps["fps"]
+
+    no_title = element_print.get("window").copy()
+    del no_title["title"]
 
     with pytest.raises(ValueError) as _:
         Window(no_size)
-
     with pytest.raises(ValueError) as _:
         Window(no_grid)
-
     with pytest.raises(ValueError) as _:
         Window(no_fps)
-
     with pytest.raises(ValueError) as _:
         Window(no_title)
 
 
 def test_window_bad_type():
     """Test window wrong value passed"""
-    bad_size = {"size": 2.2, "grid_div": 2, "fps": 60, "title": "Engine"}
-    bad_grid = {"size": [0, 0], "grid_div": 2.1, "fps": 60, "title": "Engine"}
-    bad_fps = {"size": [0, 0], "grid_div": 2, "fps": 1.1, "title": "Engine"}
-    bad_title = {"size": [0, 0], "grid_div": 2, "fps": 60, "title": 1}
+    bad_size = element_print.get("window").copy()
+    bad_size["size"] = 2.2
+
+    bad_grid = element_print.get("window").copy()
+    bad_grid["grid_div"] = 2.1
+
+    bad_fps = element_print.get("window").copy()
+    bad_fps["fps"] = 1.1
+
+    bad_title = element_print.get("window").copy()
+    bad_title["title"] = 1
 
     with pytest.raises(TypeError) as _:
         Window(bad_size)
