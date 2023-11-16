@@ -6,6 +6,7 @@
         "title": "Engine"
     },
     "fonts": {
-        "pixal_35": {"font_path": "fonts/Pixeltype.ttf", "size": 35}
+        "pixal_35": {"font_path": "fonts/Pixeltype.ttf", "size": 35},
+        "pixal_15": {"font_path": "fonts/Pixeltype.ttf", "size": 15}
     }
 }

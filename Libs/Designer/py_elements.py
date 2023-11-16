@@ -17,4 +17,4 @@ class PyRect(Rectangle, Text):
         self.type = "rect"
 
         Rectangle.__init__(self, attributes.get("rect"))
-        Text.__init__(self, attributes.get("text"))
+        Text.__init__(self, attributes.get("text"), self.rect)

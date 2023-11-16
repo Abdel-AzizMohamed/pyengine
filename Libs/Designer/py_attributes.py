@@ -16,11 +16,14 @@ class Rectangle:
         """Init new pygame rect object"""
         self.rect = self.set_rect(rect_data)
 
+        data_check(rect_data.get("color"), str)
+        self.rect_color = rect_data.get("color")
+
     def set_rect(self, rect_data):
         """
         creates a new pygame rect object
 
-        Attributes:
+        Arguments:
             rect_data: given rect data (size, postition)
         """
         data_check(rect_data, dict)
@@ -53,20 +56,40 @@ class Text:
 
     fonts = {}
 
-    def __init__(self, text_data):
+    def __init__(self, text_data, rect):
         """Init new pygame text object"""
         self.font = None
         self.text = None
         self.antialias = None
         self.color = None
+        self.align = None
 
-        self.text_obj = self.set_text(text_data)
+        self.font_size = None
+        self.rect_size = rect.size
+        self.align_x = 0
+        self.align_y = 0
+
+        self.font_render = self.set_text(text_data)
+
+    def update_text(self, font=None, text=None, antialias=None, color=None, align=None):
+        """Update font properties"""
+        self.font = self.font if font is None else self.fonts.get(font)
+        self.text = self.text if text is None else text
+        self.antialias = self.antialias if antialias is None else antialias
+        self.color = self.color if color is None else color
+
+        align = self.align if align is None else align
+
+        self.font_render = self.font.render(self.text, self.antialias, self.color)
+        self.font_size = self.font_render.get_rect().size
+
+        self.set_align(align)
 
     def set_text(self, text_data):
         """
         creates a new pygame text object
 
-        Attributes:
+        Arguments:
             text_data: given text data (color, text, font)
         """
         data_check(text_data, dict)
@@ -75,22 +98,78 @@ class Text:
         text = text_data.get("text")
         antialias = text_data.get("antialias")
         color = text_data.get("color")
+        align = text_data.get("align")
 
         data_check(text, str)
         data_check(antialias, bool)
         data_check(color, str)
         data_check(font, str)
+        data_check(align, str)
 
         font_obj = self.fonts.get(font)
 
         data_check(font_obj, pygame.font.Font)
 
-        self.font = font
+        self.font = font_obj
         self.text = text
         self.antialias = antialias
         self.color = color
 
-        return font_obj.render(text, antialias, color)
+        font_render = font_obj.render(text, antialias, color)
+        self.font_size = font_render.get_rect().size
+
+        self.set_align(align)
+
+        return font_render
+
+    def set_align(self, align):
+        """
+        Calculate the text alignment offest
+
+        Arguments:
+            align: text alignment (left, right, ...)
+        """
+        self.align = align
+
+        x_text_size = self.font_size[0]
+        y_text_size = self.font_size[1]
+        half_x_text_size = self.font_size[0] // 2
+        half_y_text_size = self.font_size[1] // 2
+
+        x_rect_size = self.rect_size[0]
+        y_rect_size = self.rect_size[1]
+        half_x_rect_size = self.rect_size[0] // 2
+        half_y_rect_size = self.rect_size[1] // 2
+
+        if align == "top":
+            self.align_x = abs(half_x_text_size - half_x_rect_size)
+            self.align_y = 0
+        if align == "topleft":
+            self.align_x = 0
+            self.align_y = 0
+        if align == "topright":
+            self.align_x = abs(x_rect_size - x_text_size)
+            self.align_y = 0
+
+        if align == "bottom":
+            self.align_x = abs(half_x_text_size - half_x_rect_size)
+            self.align_y = abs(y_text_size - y_rect_size)
+        if align == "bottomleft":
+            self.align_x = 0
+            self.align_y = abs(y_text_size - y_rect_size)
+        if align == "bottomright":
+            self.align_x = abs(x_text_size - x_rect_size)
+            self.align_y = abs(y_text_size - y_rect_size)
+
+        if align == "center":
+            self.align_x = abs(half_x_text_size - half_x_rect_size)
+            self.align_y = abs(half_y_text_size - half_y_rect_size)
+        if align == "midleft":
+            self.align_x = 0
+            self.align_y = abs(half_y_text_size - half_y_rect_size)
+        if align == "midright":
+            self.align_x = abs(x_text_size - x_rect_size)
+            self.align_y = abs(half_y_text_size - half_y_rect_size)
 
     @staticmethod
     def load_fonts():

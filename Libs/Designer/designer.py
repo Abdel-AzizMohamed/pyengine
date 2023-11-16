@@ -79,7 +79,9 @@ class Designer:
         ]
         for item in elements:
             if item.type == "rect":
-                pygame.draw.rect(win_obj.screen, "#FFFFFF", item.rect)
+                pygame.draw.rect(win_obj.screen, item.rect_color, item.rect)
 
-            if getattr(item, "text_obj"):
-                win_obj.screen.blit(item.text_obj, item.rect)
+            if getattr(item, "font_render"):
+                x_pos = item.rect.x + item.align_x
+                y_pos = item.rect.y + item.align_y
+                win_obj.screen.blit(item.font_render, (x_pos, y_pos))
