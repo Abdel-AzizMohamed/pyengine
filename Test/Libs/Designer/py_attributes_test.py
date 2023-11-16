@@ -22,10 +22,13 @@ def test_rectangle_init():
     x_size = round(attrs.get("x_size") * (win_obj.screen_width / win_obj.y_ceil))
     y_size = round(attrs.get("y_size") * (win_obj.screen_height / win_obj.x_ceil))
 
+    color = attrs.get("color")
+
     assert obj.rect.x == x_pos
     assert obj.rect.y == y_pos
     assert obj.rect.size[0] == x_size
     assert obj.rect.size[1] == y_size
+    assert obj.rect_color == color
 
 
 def test_rectangle_set_rect_bad_value():
