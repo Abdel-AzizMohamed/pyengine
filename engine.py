@@ -6,6 +6,7 @@ import pygame
 # pylint: disable=E1101
 ###### My Packges ######
 from window import win_obj
+from Libs.eventer import Eventer
 from Libs.Designer.py_attributes import Text
 
 
@@ -27,6 +28,7 @@ class PyEngine:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
+                Eventer.trigger_events(event)
             draw_group()
             pygame.display.update()
             win_obj.clock.tick(win_obj.fps)
