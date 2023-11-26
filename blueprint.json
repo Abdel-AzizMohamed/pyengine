@@ -1,4 +1,26 @@
 {
+    "background": {
+        "base": {
+            "name": "background",
+            "group": "boxGroup",
+            "type": "rect"
+        },
+        "rect": {
+            "x_pos": 0,
+            "y_pos": 0,
+            "x_size": 32,
+            "y_size": 18,
+            "color": "#333333"
+        },
+        "events": {},
+        "text": {
+            "font": "pixal_35",
+            "text": "",
+            "antialias": false,
+            "color": "#000000",
+            "align": "center"
+        }
+    },
     "box": {
         "base": {
             "name": "box1",
@@ -30,7 +52,7 @@
         "rect": {
             "x_pos": 2,
             "y_pos": 4,
-            "radius": 32,
+            "radius": 12,
             "color": "#ffffff"
         },
         "events": {},

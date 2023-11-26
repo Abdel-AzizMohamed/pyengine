@@ -171,14 +171,11 @@ class Text:
             self.align_y = abs(half_y_text_size - half_y_rect_size)
 
     @staticmethod
-    def load_fonts():
+    def load_fonts(fonts):
         """Loads all game fonts from config file"""
-        config_path = path_check("config.json", "defualt_config.json")
-        fonts_file = read_json(config_path).get("fonts")
+        data_check(fonts, dict)
 
-        data_check(fonts_file, dict)
-
-        for name, font in fonts_file.items():
+        for name, font in fonts.items():
             font_path = font.get("font_path")
             size = font.get("size")
 

@@ -12,9 +12,10 @@ class Eventer:
     """Define main event halper"""
 
     elements_events = {}
+    global_events = []
 
-    @classmethod
-    def add_object_event(cls, element, event_data):
+    @staticmethod
+    def add_object_event(element, event_data):
         """
         Add event to given element
 
@@ -25,18 +26,36 @@ class Eventer:
         if not event_data:
             return
 
-        if not cls.elements_events.get(element.group):
-            cls.elements_events[element.group] = []
+        if not Eventer.elements_events.get(element.group):
+            Eventer.elements_events[element.group] = []
 
         for func_path, data in event_data.items():
             moudle_path, str_func = func_path.split(":")
 
             func = getattr(import_module(moudle_path), str_func)
 
-            cls.elements_events[element.group].append((func, data, element))
+            Eventer.elements_events[element.group].append((func, data, element))
 
-    @classmethod
-    def trigger_events(cls, event):
+    @staticmethod
+    def load_global_events(events):
+        """
+        Add a global event
+
+        Arguments:
+            event_data: events data
+        """
+        if not events:
+            return
+
+        for func_path, data in events.items():
+            moudle_path, str_func = func_path.split(":")
+
+            func = getattr(import_module(moudle_path), str_func)
+
+            Eventer.global_events.append((func, data))
+
+    @staticmethod
+    def trigger_events(event):
         """
         Trigger all the elements events
 
@@ -44,7 +63,7 @@ class Eventer:
             event: event object from pygame to check for events
         """
         elements = [
-            element for group in cls.elements_events.values() for element in group
+            element for group in Eventer.elements_events.values() for element in group
         ]
 
         for element in elements:
@@ -55,6 +74,14 @@ class Eventer:
             rect = element[2].rect
 
             if Eventer.check_mouse_event(event, event_type) and mouse_collision(rect):
+                function(*args)
+
+        for global_event in Eventer.global_events:
+            function = global_event[0]
+            event_type = global_event[1].get("event")
+            args = global_event[1].get("args").copy()
+
+            if Eventer.check_mouse_event(event, event_type):
                 function(*args)
 
     @staticmethod

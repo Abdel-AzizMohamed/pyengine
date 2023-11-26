@@ -14,8 +14,9 @@
         "fps_font": "pixal_35",
         "fps_antialias": false,
         "fps_color": "#ffffff",
-        "fps_align": "center",
+        "fps_align": "topright",
         "object_rect_color": "#ff0000",
         "object_rect_size": 1
-    }
+    },
+    "events" : {"temp:hello": {"event": "leftclick", "args": []}}
 }

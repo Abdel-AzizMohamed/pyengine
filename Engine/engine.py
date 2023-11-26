@@ -7,9 +7,12 @@ import pygame
 ###### My Packges ######
 from Engine.window import win_obj
 from Engine.Libs.eventer import Eventer
+from Engine.Libs.json_handler import read_json
+from Engine.Libs.path_handler import path_check
 from Engine.Libs.Designer.designer import Designer
 from Engine.Libs.Designer.py_attributes import Text
 from Engine.Libs.DevTools.devtools import DevTools
+from Engine.Libs.DevTools.debug_tools import Debugger
 
 
 class PyEngine:
@@ -17,7 +20,16 @@ class PyEngine:
 
     def __init__(self):
         """Init engine object"""
-        Text.load_fonts()
+        config_path = path_check("config.json", "defualt_config.json")
+        game_config = read_json(config_path)
+
+        fonts_attrs = game_config.get("fonts")
+        devtools_attrs = game_config.get("devtools")
+        events_attrs = game_config.get("events")
+
+        Text.load_fonts(fonts_attrs)
+        Debugger.load_debbuger_config(devtools_attrs)
+        Eventer.load_global_events(events_attrs)
 
     def mainloop(self, debug=False):
         """Game mainloop"""

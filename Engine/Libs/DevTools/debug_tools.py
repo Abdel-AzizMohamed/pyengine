@@ -4,8 +4,6 @@ import pygame
 
 ###### My Packges ######
 from Engine.window import win_obj
-from Engine.Libs.json_handler import read_json
-from Engine.Libs.path_handler import path_check
 from Engine.Libs.Designer.py_attributes import Text
 from Engine.Libs.Designer.designer import Designer
 
@@ -13,18 +11,15 @@ from Engine.Libs.Designer.designer import Designer
 class Debugger:
     """Define debugging tools"""
 
-    CONFIG_PATH = path_check("config.json", "defualt_config.json")
-    attributes = read_json(CONFIG_PATH).get("devtools")
+    grid_color = None
 
-    grid_color = attributes.get("grid_color")
+    fps_font = None
+    fps_antialias = None
+    fps_color = None
+    fps_align = None
 
-    fps_font = attributes.get("fps_font")
-    fps_antialias = attributes.get("fps_antialias")
-    fps_color = attributes.get("fps_color")
-    fps_align = attributes.get("fps_align")
-
-    object_rect_color = attributes.get("object_rect_color")
-    object_rect_size = attributes.get("object_rect_size")
+    object_rect_color = None
+    object_rect_size = None
 
     @staticmethod
     def display_grid():
@@ -91,7 +86,7 @@ class Debugger:
         elif Debugger.fps_align == "bottomleft":
             x_pos = offset
             y_pos = abs(window_height - font_height - offset)
-        elif Debugger.fps_align == "bottomright":
+        else:
             x_pos = abs(window_width - font_width - offset)
             y_pos = abs(window_height - font_height - offset)
 
@@ -111,3 +106,16 @@ class Debugger:
                 element.rect,
                 Debugger.object_rect_size,
             )
+
+    @staticmethod
+    def load_debbuger_config(attributes):
+        """Set config data for debbuger tools"""
+        Debugger.grid_color = attributes.get("grid_color")
+
+        Debugger.fps_font = attributes.get("fps_font")
+        Debugger.fps_antialias = attributes.get("fps_antialias")
+        Debugger.fps_color = attributes.get("fps_color")
+        Debugger.fps_align = attributes.get("fps_align")
+
+        Debugger.object_rect_color = attributes.get("object_rect_color")
+        Debugger.object_rect_size = attributes.get("object_rect_size")
