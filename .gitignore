@@ -1,6 +1,7 @@
 # tmp files
-*.log
 *.swp
+temp*.py
+.vscode/
 
 # Python ignore
 *.pyc
@@ -9,10 +10,5 @@
 *.sh
 
 #my ignore
-temp.py
-Planning/
-GamePublish/
-*.spec
 key
-.vscode
 pseudo/
