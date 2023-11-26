@@ -3,11 +3,11 @@
 import pytest
 
 ###### My Packges ######
-from window import FrameRate, Reslution, Window
-from Libs.json_handler import read_json
+from Engine.window import FrameRate, Reslution, Window
+from Engine.Libs.json_handler import read_json
 
 
-element_print = read_json("blueprint.json")
+element_print = read_json("defualt_config.json")
 
 
 def test_framerate_init():

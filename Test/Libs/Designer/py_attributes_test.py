@@ -3,9 +3,9 @@
 import pytest
 
 ###### My Packges ######
-from Libs.json_handler import read_json
-from Libs.Designer.py_attributes import Rectangle, Text
-from window import win_obj
+from Engine.window import win_obj
+from Engine.Libs.json_handler import read_json
+from Engine.Libs.Designer.py_attributes import Rectangle, Text
 
 
 element_print = read_json("blueprint.json")

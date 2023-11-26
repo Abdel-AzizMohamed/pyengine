@@ -3,10 +3,10 @@
 import pytest
 
 ###### My Packges ######
-from Libs.Designer.designer import Designer
-from Libs.Designer.py_elements import PyRect
-from Libs.Designer.py_attributes import Text
-from Libs.json_handler import read_json
+from Engine.Libs.json_handler import read_json
+from Engine.Libs.Designer.designer import Designer
+from Engine.Libs.Designer.py_elements import PyRect
+from Engine.Libs.Designer.py_attributes import Text
 
 
 element_print = read_json("blueprint.json")
