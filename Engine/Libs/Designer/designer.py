@@ -6,7 +6,7 @@ import pygame
 from Engine.window import win_obj
 from Engine.Libs.error_handler import data_check
 from Engine.Libs.eventer import Eventer
-from Engine.Libs.Designer.py_elements import PyRect
+from Engine.Libs.Designer.py_elements import PyRect, PyCircle
 
 
 class Designer:
@@ -18,7 +18,7 @@ class Designer:
             game_elements: dict of all game elements
     """
 
-    elements_classes = {"PyRect": PyRect}
+    elements_classes = {"PyRect": PyRect, "PyCircle": PyCircle}
     game_elements = {}
 
     @staticmethod
@@ -32,8 +32,8 @@ class Designer:
         """
         data_check(ele_attributes, dict)
 
-        ele_group = ele_attributes.get("group")
-        ele_name = ele_attributes.get("name")
+        ele_group = ele_attributes.get("base").get("group")
+        ele_name = ele_attributes.get("base").get("name")
 
         data_check(ele_name, str)
         data_check(ele_group, str)
@@ -79,6 +79,14 @@ class Designer:
         for item in elements:
             if item.type == "rect":
                 pygame.draw.rect(win_obj.screen, item.rect_color, item.rect)
+
+            elif item.type == "circle":
+                pygame.draw.circle(
+                    win_obj.screen,
+                    item.rect_color,
+                    item.rect.center,
+                    item.radius,
+                )
 
             if getattr(item, "font_render"):
                 x_pos = item.rect.x + item.align_x

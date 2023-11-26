@@ -1,12 +1,42 @@
 {
     "box": {
-        "name": "box1",
-        "group": "boxGroup",
-        "rect": {"x_pos": 0, "y_pos": 0, "x_size": 1, "y_size": 1, "color": "#ffffff"},
+        "base": {
+            "name": "box1",
+            "group": "boxGroup",
+            "type": "rect"
+        },
+        "rect": {
+            "x_pos": 1,
+            "y_pos": 17,
+            "x_size": 1,
+            "y_size": 1,
+            "color": "#00FF00"
+        },
         "events": {},
         "text": {
             "font": "pixal_35",
-            "text": "test",
+            "text": "",
+            "antialias": false,
+            "color": "#000000",
+            "align": "center"
+        }
+    },
+    "circle": {
+        "base": {
+            "name": "circle1",
+            "group": "boxGroup",
+            "type": "circle"
+        },
+        "rect": {
+            "x_pos": 2,
+            "y_pos": 4,
+            "radius": 32,
+            "color": "#ffffff"
+        },
+        "events": {},
+        "text": {
+            "font": "pixal_35",
+            "text": "",
             "antialias": false,
             "color": "#000000",
             "align": "center"

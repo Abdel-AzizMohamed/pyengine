@@ -7,7 +7,9 @@ import pygame
 ###### My Packges ######
 from Engine.window import win_obj
 from Engine.Libs.eventer import Eventer
+from Engine.Libs.Designer.designer import Designer
 from Engine.Libs.Designer.py_attributes import Text
+from Engine.Libs.DevTools.devtools import DevTools
 
 
 class PyEngine:
@@ -17,11 +19,15 @@ class PyEngine:
         """Init engine object"""
         Text.load_fonts()
 
-    def mainloop(self, draw_group):
+    def mainloop(self, debug=False):
         """Game mainloop"""
         while True:
             self.trigger_events()
-            draw_group()
+
+            Designer.draw_group()
+            if debug:
+                DevTools.display_tools()
+
             pygame.display.update()
             win_obj.clock.tick(win_obj.fps)
 

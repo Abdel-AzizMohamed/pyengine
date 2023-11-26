@@ -30,23 +30,22 @@ class Rectangle:
 
         x_pos = rect_data.get("x_pos")
         y_pos = rect_data.get("y_pos")
+
         x_size = rect_data.get("x_size")
         y_size = rect_data.get("y_size")
+        radius = rect_data.get("radius")
 
         data_check(x_pos, int)
         data_check(y_pos, int)
-        data_check(x_size, int)
-        data_check(y_size, int)
 
-        x_pos = round(rect_data.get("x_pos") * (win_obj.screen_width / win_obj.y_ceil))
-        y_pos = round(rect_data.get("y_pos") * (win_obj.screen_height / win_obj.x_ceil))
+        x_pos = round(x_pos * (win_obj.screen_width / win_obj.y_ceil))
+        y_pos = round(y_pos * (win_obj.screen_height / win_obj.x_ceil))
 
-        x_size = round(
-            rect_data.get("x_size") * (win_obj.screen_width / win_obj.y_ceil)
-        )
-        y_size = round(
-            rect_data.get("y_size") * (win_obj.screen_height / win_obj.x_ceil)
-        )
+        if radius:
+            x_size = y_size = radius * 2
+        else:
+            x_size = round(x_size * (win_obj.screen_width / win_obj.y_ceil))
+            y_size = round(y_size * (win_obj.screen_height / win_obj.x_ceil))
 
         return pygame.Rect((x_pos, y_pos), (x_size, y_size))
 
