@@ -1,5 +1,5 @@
 """Contains all the basic ui elements (no images only pygame elements)"""
-from Libs.Designer.py_attributes import Rectangle, Text
+from Engine.Libs.Designer.py_attributes import Rectangle, Text
 
 
 class PyRect(Rectangle, Text):

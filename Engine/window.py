@@ -5,9 +5,9 @@ import os
 import pygame
 
 ###### My Packges ######
-from Libs.json_handler import read_json
-from Libs.error_handler import data_check
-from Libs.path_handler import path_check
+from Engine.Libs.json_handler import read_json
+from Engine.Libs.error_handler import data_check
+from Engine.Libs.path_handler import path_check
 
 # pylint: disable=E1101
 #### Pygame Init ####

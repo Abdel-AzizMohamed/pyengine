@@ -3,10 +3,10 @@
 import pygame
 
 ###### My Packges ######
-from window import win_obj
-from Libs.json_handler import read_json
-from Libs.error_handler import data_check
-from Libs.path_handler import path_check
+from Engine.window import win_obj
+from Engine.Libs.json_handler import read_json
+from Engine.Libs.error_handler import data_check
+from Engine.Libs.path_handler import path_check
 
 
 class Rectangle:

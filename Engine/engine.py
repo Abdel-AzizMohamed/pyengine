@@ -5,9 +5,9 @@ import pygame
 
 # pylint: disable=E1101
 ###### My Packges ######
-from window import win_obj
-from Libs.eventer import Eventer
-from Libs.Designer.py_attributes import Text
+from Engine.window import win_obj
+from Engine.Libs.eventer import Eventer
+from Engine.Libs.Designer.py_attributes import Text
 
 
 class PyEngine:
