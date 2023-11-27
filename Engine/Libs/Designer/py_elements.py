@@ -31,6 +31,8 @@ class PyRect(PyBase, Rectangle, Text):
         Rectangle.__init__(self, attributes.get("rect"))
         Text.__init__(self, attributes.get("text"), self.rect)
 
+        self.color = attributes.get("color")
+
 
 class PyCircle(PyBase, Rectangle, Text):
     """Define a basic circle shape"""
@@ -47,3 +49,29 @@ class PyCircle(PyBase, Rectangle, Text):
         Text.__init__(self, attributes.get("text"), self.rect)
 
         self.radius = attributes.get("rect").get("radius")
+        self.color = attributes.get("color")
+
+
+class PyButton(PyBase, Rectangle, Text):
+    """Define a basic button object"""
+
+    def __init__(self, attributes):
+        """
+        init a new Button object
+
+        Attributes:
+            attributes: contains all the button data
+        """
+        PyBase.__init__(self, attributes.get("base"))
+        Rectangle.__init__(self, attributes.get("rect"))
+        Text.__init__(self, attributes.get("text"), self.rect)
+
+        bt_attrs = attributes.get("button")
+
+        self.active = bt_attrs.get("active")
+        self.disabled = bt_attrs.get("disabled")
+
+        self.active_color = self.base_color = bt_attrs.get("base_color")
+        self.hover_color = bt_attrs.get("hover_color")
+        self.select_color = bt_attrs.get("select_color")
+        self.disabled_color = bt_attrs.get("disabled_color")

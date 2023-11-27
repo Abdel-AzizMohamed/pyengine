@@ -5,8 +5,8 @@ import pygame
 ###### My Packges ######
 from Engine.window import win_obj
 from Engine.Libs.error_handler import data_check
-from Engine.Libs.eventer import Eventer
-from Engine.Libs.Designer.py_elements import PyRect, PyCircle
+from Engine.Libs.Eventer.eventer import Eventer
+from Engine.Libs.Designer.py_elements import PyRect, PyCircle, PyButton
 
 
 class Designer:
@@ -18,7 +18,7 @@ class Designer:
             game_elements: dict of all game elements
     """
 
-    elements_classes = {"PyRect": PyRect, "PyCircle": PyCircle}
+    elements_classes = {"PyRect": PyRect, "PyCircle": PyCircle, "PyButton": PyButton}
     game_elements = {}
 
     @staticmethod
@@ -78,15 +78,17 @@ class Designer:
         ]
         for item in elements:
             if item.type == "rect":
-                pygame.draw.rect(win_obj.screen, item.rect_color, item.rect)
+                pygame.draw.rect(win_obj.screen, item.color, item.rect)
 
             elif item.type == "circle":
                 pygame.draw.circle(
                     win_obj.screen,
-                    item.rect_color,
+                    item.color,
                     item.rect.center,
                     item.radius,
                 )
+            elif item.type == "button":
+                pygame.draw.rect(win_obj.screen, item.active_color, item.rect)
 
             if getattr(item, "font_render"):
                 x_pos = item.rect.x + item.align_x

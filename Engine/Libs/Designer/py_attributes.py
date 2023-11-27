@@ -16,9 +16,6 @@ class Rectangle:
         """Init new pygame rect object"""
         self.rect = self.set_rect(rect_data)
 
-        data_check(rect_data.get("color"), str)
-        self.rect_color = rect_data.get("color")
-
     def set_rect(self, rect_data):
         """
         creates a new pygame rect object

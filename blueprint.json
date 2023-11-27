@@ -9,8 +9,7 @@
             "x_pos": 0,
             "y_pos": 0,
             "x_size": 32,
-            "y_size": 18,
-            "color": "#333333"
+            "y_size": 18
         },
         "events": {},
         "text": {
@@ -19,7 +18,8 @@
             "antialias": false,
             "color": "#000000",
             "align": "center"
-        }
+        },
+        "color": "#333333"
     },
     "box": {
         "base": {
@@ -31,8 +31,7 @@
             "x_pos": 1,
             "y_pos": 17,
             "x_size": 1,
-            "y_size": 1,
-            "color": "#00FF00"
+            "y_size": 1
         },
         "events": {},
         "text": {
@@ -41,7 +40,8 @@
             "antialias": false,
             "color": "#000000",
             "align": "center"
-        }
+        },
+        "color": "#ffffff"
     },
     "circle": {
         "base": {
@@ -52,8 +52,7 @@
         "rect": {
             "x_pos": 2,
             "y_pos": 4,
-            "radius": 12,
-            "color": "#ffffff"
+            "radius": 12
         },
         "events": {},
         "text": {
@@ -62,6 +61,36 @@
             "antialias": false,
             "color": "#000000",
             "align": "center"
+        },
+        "color": "#ffffff"
+    },
+    "button": {
+        "base": {
+            "name": "button1",
+            "group": "boxGroup",
+            "type": "button"
+        },
+        "rect": {
+            "x_pos": 4,
+            "y_pos": 4,
+            "x_size": 1,
+            "y_size": 1
+        },
+        "events": {},
+        "text": {
+            "font": "pixal_35",
+            "text": "",
+            "antialias": false,
+            "color": "#000000",
+            "align": "center"
+        },
+        "button": {
+            "active": false,
+            "disabled": false,
+            "base_color": "#ffffff",
+            "hover_color": "#eeeeee",
+            "select_color": "#aaaaaa",
+            "disabled_color": "#000000"
         }
     }
 }
