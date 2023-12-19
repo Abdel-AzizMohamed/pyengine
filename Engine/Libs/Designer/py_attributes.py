@@ -4,9 +4,6 @@ import pygame
 
 ###### My Packges ######
 from Engine.window import win_obj
-from Engine.Libs.json_handler import read_json
-from Engine.Libs.error_handler import data_check
-from Engine.Libs.path_handler import path_check
 
 
 class Rectangle:
@@ -23,7 +20,6 @@ class Rectangle:
         Arguments:
             rect_data: given rect data (size, postition)
         """
-        data_check(rect_data, dict)
 
         x_pos = rect_data.get("x_pos")
         y_pos = rect_data.get("y_pos")
@@ -31,9 +27,6 @@ class Rectangle:
         x_size = rect_data.get("x_size")
         y_size = rect_data.get("y_size")
         radius = rect_data.get("radius")
-
-        data_check(x_pos, int)
-        data_check(y_pos, int)
 
         x_pos = round(x_pos * (win_obj.screen_width / win_obj.y_ceil))
         y_pos = round(y_pos * (win_obj.screen_height / win_obj.x_ceil))
@@ -88,7 +81,6 @@ class Text:
         Arguments:
             text_data: given text data (color, text, font)
         """
-        data_check(text_data, dict)
 
         font = text_data.get("font")
         text = text_data.get("text")
@@ -96,15 +88,7 @@ class Text:
         color = text_data.get("color")
         align = text_data.get("align")
 
-        data_check(text, str)
-        data_check(antialias, bool)
-        data_check(color, str)
-        data_check(font, str)
-        data_check(align, str)
-
         font_obj = self.fonts.get(font)
-
-        data_check(font_obj, pygame.font.Font)
 
         self.font = font_obj
         self.text = text
@@ -170,14 +154,10 @@ class Text:
     @staticmethod
     def load_fonts(fonts):
         """Loads all game fonts from config file"""
-        data_check(fonts, dict)
 
         for name, font in fonts.items():
             font_path = font.get("font_path")
             size = font.get("size")
-
-            data_check(font_path, str)
-            data_check(size, int)
 
             py_font = pygame.font.Font(font_path, size)
             Text.fonts[name] = py_font

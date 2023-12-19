@@ -18,5 +18,5 @@
         "object_rect_color": "#ff0000",
         "object_rect_size": 1
     },
-    "events" : {"temp:hello": {"event": "leftclick", "args": []}}
+    "events" : {}
 }

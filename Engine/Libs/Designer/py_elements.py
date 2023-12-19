@@ -29,7 +29,7 @@ class PyRect(PyBase, Rectangle, Text):
         """
         PyBase.__init__(self, attributes.get("base"))
         Rectangle.__init__(self, attributes.get("rect"))
-        Text.__init__(self, attributes.get("text"), self.rect)
+        Text.__init__(self, attributes.get("text_obj"), self.rect)
 
         self.color = attributes.get("color")
 
@@ -46,7 +46,7 @@ class PyCircle(PyBase, Rectangle, Text):
         """
         PyBase.__init__(self, attributes.get("base"))
         Rectangle.__init__(self, attributes.get("rect"))
-        Text.__init__(self, attributes.get("text"), self.rect)
+        Text.__init__(self, attributes.get("text_obj"), self.rect)
 
         self.radius = attributes.get("rect").get("radius")
         self.color = attributes.get("color")
@@ -64,7 +64,7 @@ class PyButton(PyBase, Rectangle, Text):
         """
         PyBase.__init__(self, attributes.get("base"))
         Rectangle.__init__(self, attributes.get("rect"))
-        Text.__init__(self, attributes.get("text"), self.rect)
+        Text.__init__(self, attributes.get("text_obj"), self.rect)
 
         bt_attrs = attributes.get("button")
 

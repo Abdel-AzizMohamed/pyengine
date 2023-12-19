@@ -4,7 +4,6 @@ import pygame
 
 ###### My Packges ######
 from Engine.window import win_obj
-from Engine.Libs.error_handler import data_check
 from Engine.Libs.Eventer.eventer import Eventer
 from Engine.Libs.Designer.py_elements import PyRect, PyCircle, PyButton
 
@@ -30,13 +29,9 @@ class Designer:
             ele_class: element class name
             ele_attributes: element attributes (text, color, ...)
         """
-        data_check(ele_attributes, dict)
 
         ele_group = ele_attributes.get("base").get("group")
         ele_name = ele_attributes.get("base").get("name")
-
-        data_check(ele_name, str)
-        data_check(ele_group, str)
 
         element = Designer.elements_classes[ele_class](ele_attributes)
 
@@ -58,7 +53,6 @@ class Designer:
         Arguments:
             name: name to search for
         """
-        data_check(name, str)
 
         elements = [
             (key, item)

@@ -6,8 +6,7 @@ import pygame
 
 ###### My Packges ######
 from Engine.Libs.json_handler import read_json
-from Engine.Libs.error_handler import data_check
-from Engine.Libs.path_handler import path_check
+from Engine.Libs.path_handler import alternate_path
 
 # pylint: disable=E1101
 #### Pygame Init ####
@@ -87,17 +86,11 @@ class Window(Reslution, FrameRate):
         Arguments:
             window_data: contains window config (size, title, icon, ...)
         """
-        data_check(window_data, dict)
 
         size = window_data.get("size")
         grid_div = window_data.get("grid_div")
         fps = window_data.get("fps")
         title = window_data.get("title")
-
-        data_check(size, list)
-        data_check(grid_div, int)
-        data_check(fps, int)
-        data_check(title, str)
 
         Reslution.__init__(self, size, grid_div)
         FrameRate.__init__(self, fps)
@@ -105,12 +98,10 @@ class Window(Reslution, FrameRate):
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption(title)
 
-        icon_path = os.path.join(
-            os.path.dirname(os.path.normpath(__file__)), "Sprites", "icon.png"
-        )
+        icon_path = os.path.join(os.path.abspath("Engine"), "Sprites", "icon.png")
         icon = pygame.image.load(icon_path).convert_alpha()
         pygame.display.set_icon(icon)
 
 
-CONFIG_PATH = path_check("config.json", "defualt_config.json")
+CONFIG_PATH = alternate_path("config.json", "defualt_config.json")
 win_obj = Window(read_json(CONFIG_PATH).get("window"))
