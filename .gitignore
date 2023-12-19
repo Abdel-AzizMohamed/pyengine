@@ -2,6 +2,7 @@
 *.swp
 temp*.py
 .vscode/
+cspell.json
 
 # Python ignore
 *.pyc

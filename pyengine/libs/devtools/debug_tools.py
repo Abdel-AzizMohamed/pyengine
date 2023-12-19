@@ -108,7 +108,7 @@ class Debugger:
             )
 
     @staticmethod
-    def load_debbuger_config(attributes):
+    def load_debugger_config(attributes):
         """Set config data for debbuger tools"""
         Debugger.grid_color = attributes.get("grid_color")
 

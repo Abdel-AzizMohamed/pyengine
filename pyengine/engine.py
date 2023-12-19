@@ -71,5 +71,5 @@ class PyEngine:
         events_attrs = game_config.get("events")
 
         Text.load_fonts(fonts_attrs)
-        Debugger.load_debbuger_config(devtools_attrs)
+        Debugger.load_debugger_config(devtools_attrs)
         Eventer.load_global_events(events_attrs)
