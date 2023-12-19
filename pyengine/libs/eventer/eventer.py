@@ -5,7 +5,7 @@ import pygame
 
 # pylint: disable=E1101
 #### My Packges ####
-from Engine.Libs.collision_handler import mouse_collision
+from pyengine.utils.collision_handler import mouse_collision
 
 
 class Eventer:

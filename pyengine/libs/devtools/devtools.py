@@ -1,5 +1,5 @@
 """Define start point for Devtools Package"""
-from Engine.Libs.DevTools.debug_tools import Debugger
+from pyengine.libs.devtools.debug_tools import Debugger
 
 
 class DevTools:

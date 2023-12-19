@@ -1,23 +1,24 @@
 """Project start point"""
-###### Python Packges ######
+###### Python Packages ######
 import sys
 import pygame
 
 # pylint: disable=E1101
-###### My Packges ######
-from Engine.window import win_obj
-from Engine.Libs.Eventer.eventer import Eventer
-from Engine.Libs.json_handler import read_json
-from Engine.Libs.path_handler import alternate_path, walk_search
-from Engine.Libs.Designer.designer import Designer
-from Engine.Libs.Designer.py_attributes import Text
-from Engine.Libs.DevTools.devtools import DevTools
-from Engine.Libs.DevTools.debug_tools import Debugger
-from Engine.Libs.errors_handler.data_checker import config_check, ui_check
+###### My Packages ######
+from pyengine.window import win_obj, CONFIG_PATH
+from pyengine.libs.eventer.eventer import Eventer
+from pyengine.libs.designer.designer import Designer
+from pyengine.libs.designer.py_attributes import Text
+from pyengine.libs.devtools.devtools import DevTools
+from pyengine.libs.devtools.debug_tools import Debugger
+
+from pyengine.utils.json_handler import read_json
+from pyengine.utils.path_handler import alternate_path, walk_search
+from pyengine.utils.errors_handler.data_checker import config_check, ui_check
 
 
 class PyEngine:
-    """Main class that works as a connector for all packges"""
+    """Main class that works as a connector for all packages"""
 
     @staticmethod
     def mainloop(debug: bool = False) -> None:
@@ -59,12 +60,11 @@ class PyEngine:
     @staticmethod
     def load_data() -> None:
         """Loads game data"""
-        config_path = alternate_path("config.json", "defualt_config.json")
-        config_check(config_path)
-        game_config = read_json(config_path)
+        config_check(CONFIG_PATH)
+        game_config = read_json(CONFIG_PATH)
 
         for file in walk_search("UiData"):
-            ui_check(file, config_path)
+            ui_check(file, CONFIG_PATH)
 
         fonts_attrs = game_config.get("fonts")
         devtools_attrs = game_config.get("devtools")

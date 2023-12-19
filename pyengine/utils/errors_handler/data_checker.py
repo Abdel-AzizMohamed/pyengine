@@ -2,8 +2,8 @@
 import os
 from importlib import import_module
 import pygame
-from Engine.Libs.json_handler import read_json
-from Engine.Libs.errors_handler.custom_exception import InvalidDataTypeError
+from pyengine.utils.json_handler import read_json
+from pyengine.utils.errors_handler.custom_exception import InvalidDataTypeError
 
 
 def validate_color(color: str) -> bool:

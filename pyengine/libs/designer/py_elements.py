@@ -1,5 +1,5 @@
 """Contains all the basic ui elements (no images only pygame elements)"""
-from Engine.Libs.Designer.py_attributes import Rectangle, Text
+from pyengine.libs.designer.py_attributes import Rectangle, Text
 
 
 class PyBase:

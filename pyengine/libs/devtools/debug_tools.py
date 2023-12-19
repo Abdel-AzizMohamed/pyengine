@@ -3,9 +3,9 @@
 import pygame
 
 ###### My Packges ######
-from Engine.window import win_obj
-from Engine.Libs.Designer.py_attributes import Text
-from Engine.Libs.Designer.designer import Designer
+from pyengine.window import win_obj
+from pyengine.libs.designer.py_attributes import Text
+from pyengine.libs.designer.designer import Designer
 
 
 class Debugger:

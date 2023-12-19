@@ -1,12 +1,12 @@
 """Define game window that contains windows setting"""
-###### Python Packges ######
+###### Python Packages ######
 import time
 import os
 import pygame
 
 ###### My Packges ######
-from Engine.Libs.json_handler import read_json
-from Engine.Libs.path_handler import alternate_path
+from pyengine.utils.json_handler import read_json
+from pyengine.utils.path_handler import alternate_path
 
 # pylint: disable=E1101
 #### Pygame Init ####
@@ -98,10 +98,12 @@ class Window(Reslution, FrameRate):
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption(title)
 
-        icon_path = os.path.join(os.path.abspath("Engine"), "Sprites", "icon.png")
-        icon = pygame.image.load(icon_path).convert_alpha()
-        pygame.display.set_icon(icon)
+        # icon_path = os.path.join(os.path.abspath("Engine"), "Sprites", "icon.png")
+        # icon = pygame.image.load(icon_path).convert_alpha()
+        # pygame.display.set_icon(icon)
 
 
-CONFIG_PATH = alternate_path("config.json", "defualt_config.json")
+
+DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "default_config.json")
+CONFIG_PATH = alternate_path("config.json", DEFAULT_CONFIG_PATH)
 win_obj = Window(read_json(CONFIG_PATH).get("window"))

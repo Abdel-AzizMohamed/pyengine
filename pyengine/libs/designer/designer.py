@@ -1,11 +1,11 @@
 """Define the designer packge start point"""
-###### Python Packges ######
+###### Python Packages ######
 import pygame
 
-###### My Packges ######
-from Engine.window import win_obj
-from Engine.Libs.Eventer.eventer import Eventer
-from Engine.Libs.Designer.py_elements import PyRect, PyCircle, PyButton
+###### My Packages ######
+from pyengine.window import win_obj
+from pyengine.libs.eventer.eventer import Eventer
+from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton
 
 
 class Designer:
