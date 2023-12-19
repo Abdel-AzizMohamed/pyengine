@@ -3,7 +3,7 @@
         "base": {
             "name": "background",
             "group": "boxGroup",
-            "type": "rect"
+            "class": "PyRect"
         },
         "rect": {
             "x_pos": 0,
@@ -23,9 +23,9 @@
     },
     "box": {
         "base": {
-            "name": "box1",
+            "name": "box",
             "group": "boxGroup",
-            "type": "rect"
+            "class": "PyRect"
         },
         "rect": {
             "x_pos": 1,
@@ -45,9 +45,9 @@
     },
     "circle": {
         "base": {
-            "name": "circle1",
+            "name": "circle",
             "group": "boxGroup",
-            "type": "circle"
+            "class": "PyCircle"
         },
         "rect": {
             "x_pos": 2,
@@ -66,9 +66,9 @@
     },
     "button": {
         "base": {
-            "name": "button1",
+            "name": "button",
             "group": "boxGroup",
-            "type": "button"
+            "class": "PyButton"
         },
         "rect": {
             "x_pos": 4,

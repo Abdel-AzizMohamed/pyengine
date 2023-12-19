@@ -1,5 +1,6 @@
-"""Define the designer packge start point"""
+"""Define the designer package start point"""
 ###### Python Packages ######
+from typing import Union
 import pygame
 
 ###### My Packages ######
@@ -7,10 +8,12 @@ from pyengine.window import win_obj
 from pyengine.libs.eventer.eventer import Eventer
 from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton
 
+from pyengine.utils.json_handler import read_json
+
 
 class Designer:
     """
-    Define the main grahpic helper
+    Define the main graphic helper
 
     Attributes:
             elements_classes: Contains all the elements classes
@@ -21,37 +24,47 @@ class Designer:
     game_elements = {}
 
     @staticmethod
-    def create_element(ele_class, ele_attributes):
+    def create_element(element_attributes) -> None:
         """
         creates a new element
 
         Arguments:
-            ele_class: element class name
-            ele_attributes: element attributes (text, color, ...)
+            element_attributes: element attributes (text, color, ...)
         """
 
-        ele_group = ele_attributes.get("base").get("group")
-        ele_name = ele_attributes.get("base").get("name")
+        ele_group = element_attributes.get("base").get("group")
+        ele_name = element_attributes.get("base").get("name")
+        ele_class = element_attributes.get("base").get("class")
 
-        element = Designer.elements_classes[ele_class](ele_attributes)
+        element = Designer.elements_classes[ele_class](element_attributes)
 
-        Eventer.add_object_event(element, ele_attributes.get("events"))
+        Eventer.add_object_event(element, element_attributes.get("events"))
 
         if not Designer.game_elements.get(ele_group):
             Designer.game_elements[ele_group] = {}
 
         Designer.game_elements.get(ele_group)[ele_name] = element
 
-    def read_ui(self, file_path):
-        """read given ui file"""
-
     @staticmethod
-    def get_element(name):
+    def create_from_file(file_path: str) -> None:
         """
-        gets element by its name
+        Create all elements in a given ui file
 
         Arguments:
-            name: name to search for
+            file_path: ui file path
+        """
+        ui_data = read_json(file_path)
+
+        for element_data in ui_data.values():
+            Designer.create_element(element_data)
+
+    @staticmethod
+    def get_element(name: str) -> Union[object, None]:
+        """
+        Returns element with the given name else None if not found
+
+        Arguments:
+            name: wanted element name
         """
 
         elements = [
@@ -65,26 +78,27 @@ class Designer:
         return None
 
     @staticmethod
-    def draw_group():
-        """draw elements on screen"""
+    def draw_groups() -> None:
+        """Draw all the groups elements"""
         elements = [
             item for group in Designer.game_elements.values() for item in group.values()
         ]
-        for item in elements:
-            if item.type == "rect":
-                pygame.draw.rect(win_obj.screen, item.color, item.rect)
 
-            elif item.type == "circle":
+        for element in elements:
+            if element.type == "PyRect":
+                pygame.draw.rect(win_obj.screen, element.color, element.rect)
+
+            elif element.type == "PyCircle":
                 pygame.draw.circle(
                     win_obj.screen,
-                    item.color,
-                    item.rect.center,
-                    item.radius,
+                    element.color,
+                    element.rect.center,
+                    element.radius,
                 )
-            elif item.type == "button":
-                pygame.draw.rect(win_obj.screen, item.active_color, item.rect)
+            elif element.type == "PyButton":
+                pygame.draw.rect(win_obj.screen, element.active_color, element.rect)
 
-            if getattr(item, "font_render"):
-                x_pos = item.rect.x + item.align_x
-                y_pos = item.rect.y + item.align_y
-                win_obj.screen.blit(item.font_render, (x_pos, y_pos))
+            if getattr(element, "font_render"):
+                x_pos = element.rect.x + element.align_x
+                y_pos = element.rect.y + element.align_y
+                win_obj.screen.blit(element.font_render, (x_pos, y_pos))

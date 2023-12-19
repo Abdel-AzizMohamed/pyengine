@@ -31,7 +31,7 @@ class PyEngine:
         while True:
             PyEngine.trigger_events(debug)
 
-            Designer.draw_group()
+            Designer.draw_groups()
             if debug:
                 DevTools.display_tools()
 

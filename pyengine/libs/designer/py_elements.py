@@ -14,7 +14,7 @@ class PyBase:
         """
         self.name = attributes.get("name")
         self.group = attributes.get("group")
-        self.type = attributes.get("type")
+        self.type = attributes.get("class")
 
 
 class PyRect(PyBase, Rectangle, Text):

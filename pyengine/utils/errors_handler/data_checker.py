@@ -163,11 +163,11 @@ def ui_check(file: str, config_file: str) -> None:
 
         name = base.get("name")
         group = base.get("group")
-        element_type = base.get("type")
+        element_type = base.get("class")
 
         validate_data(file, name, "name", str)
         validate_data(file, group, "group", str)
-        validate_data(file, element_type, "type", str)
+        validate_data(file, element_type, "class", str)
 
         x_pos = rect.get("x_pos")
         y_pos = rect.get("y_pos")
@@ -178,7 +178,7 @@ def ui_check(file: str, config_file: str) -> None:
         validate_data(file, x_pos, "x_pos", int)
         validate_data(file, y_pos, "y_pos", int)
 
-        if element_type == "circle":
+        if element_type == "PyCircle":
             validate_data(file, radius, "radius", float)
         else:
             validate_data(file, x_size, "x_size", int)
@@ -231,7 +231,7 @@ def ui_check(file: str, config_file: str) -> None:
         validate_data(file, color, "color", str, valid_color=True)
         validate_data(file, align, "align", str, valid_data=aligment)
 
-        if element_type == "circle" or element_type == "rect":
+        if element_type == "PyCircle" or element_type == "PyRect":
             element_color = element.get("color")
             validate_data(file, element_color, "element_color", str, valid_color=True)
         else:
