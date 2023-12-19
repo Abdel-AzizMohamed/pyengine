@@ -9,6 +9,7 @@ from pyengine.utils.json_handler import read_json
 from pyengine.utils.path_handler import alternate_path
 
 # pylint: disable=E1101
+# pylint: disable=R0903
 #### Pygame Init ####
 pygame.init()
 pygame.mixer.init()
