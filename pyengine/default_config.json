@@ -1,15 +1,15 @@
 {
-    "window": {
-        "size": [0, 0],
-        "grid_div": 2,
+    "window_data": {
+        "window_size": [0, 0],
+        "grid_precision_level": 2,
         "fps": 60,
-        "title": "Engine"
+        "window_title": "Engine"
     },
-    "fonts": {
-        "pixal_35": {"font_path": "fonts/Pixeltype.ttf", "size": 35},
-        "pixal_15": {"font_path": "fonts/Pixeltype.ttf", "size": 15}
+    "fonts_data": {
+        "pixal_35": {"font_path": "fonts/Pixeltype.ttf", "font_size": 35},
+        "pixal_15": {"font_path": "fonts/Pixeltype.ttf", "font_size": 15}
     },
-    "devtools": {
+    "devtools_data": {
         "grid_color": "#ffffff",
         "fps_font": "pixal_35",
         "fps_antialias": false,
@@ -18,5 +18,5 @@
         "object_rect_color": "#ff0000",
         "object_rect_size": 1
     },
-    "events" : {}
+    "events_data" : {}
 }

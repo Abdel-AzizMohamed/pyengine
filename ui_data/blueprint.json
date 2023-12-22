@@ -14,10 +14,10 @@
         "event_data": {},
         "text_data": {
             "font": "pixal_35",
-            "text": "",
+            "text": "Test Engine",
             "antialias": false,
-            "color": "#000000",
-            "align": "center"
+            "color": "#ffffff",
+            "align": "top"
         },
         "obj_data": {
             "color": "#333333"

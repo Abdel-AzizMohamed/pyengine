@@ -85,21 +85,21 @@ class Window(Resolution, FrameRate):
         Init a new window object
 
         Arguments:
-            window_data: contains window config (size, title, icon, ...)
+            window_data: dict contains window data {window_size, grid_precision_level, fps, window_title}
         """
 
-        size = window_data.get("size")
-        grid_div = window_data.get("grid_div")
+        window_size = window_data.get("window_size")
+        grid_precision_level = window_data.get("grid_precision_level")
         fps = window_data.get("fps")
-        title = window_data.get("title")
+        window_title = window_data.get("window_title")
 
-        Resolution.__init__(self, size, grid_div)
+        Resolution.__init__(self, window_size, grid_precision_level)
         FrameRate.__init__(self, fps)
 
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        pygame.display.set_caption(title)
+        pygame.display.set_caption(window_title)
 
 
 DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "default_config.json")
 CONFIG_PATH = alternate_path("config.json", DEFAULT_CONFIG_PATH)
-win_obj = Window(read_json(CONFIG_PATH).get("window"))
+win_obj = Window(read_json(CONFIG_PATH).get("window_data"))
