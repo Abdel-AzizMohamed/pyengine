@@ -12,7 +12,7 @@ from pyengine.utils.json_handler import read_json
 
 
 blueprint = read_json("ui_data/blueprint.json")
-fonts = read_json(CONFIG_PATH).get("fonts")
+fonts = read_json(CONFIG_PATH).get("fonts_data")
 Text.load_fonts(fonts)
 
 
