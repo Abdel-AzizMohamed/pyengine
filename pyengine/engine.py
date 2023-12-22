@@ -62,8 +62,8 @@ class PyEngine:
         """Loads game data"""
         config_check(CONFIG_PATH)
 
-        for file in walk_search("UiData"):
-            ui_check(file, CONFIG_PATH)
+        # for file in walk_search("UiData"):
+        #     ui_check(file, CONFIG_PATH)
 
         game_config = read_json(CONFIG_PATH)
 

@@ -32,13 +32,15 @@ class Designer:
             element_attributes: element attributes (text, color, ...)
         """
 
-        ele_group = element_attributes.get("base").get("group")
-        ele_name = element_attributes.get("base").get("name")
-        ele_class = element_attributes.get("base").get("class")
+        base_data = element_attributes.get("base_data")
+
+        ele_group = base_data.get("group")
+        ele_name = base_data.get("name")
+        ele_class = base_data.get("class")
 
         element = Designer.elements_classes[ele_class](element_attributes)
 
-        Eventer.add_object_event(element, element_attributes.get("events"))
+        Eventer.add_object_event(element, element_attributes.get("event_data"))
 
         if not Designer.game_elements.get(ele_group):
             Designer.game_elements[ele_group] = {}

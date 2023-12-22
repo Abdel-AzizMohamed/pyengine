@@ -1,90 +1,96 @@
 {
     "background": {
-        "base": {
+        "base_data": {
             "name": "background",
             "group": "boxGroup",
             "class": "PyRect"
         },
-        "rect": {
+        "rect_data": {
             "x_pos": 0,
             "y_pos": 0,
             "x_size": 32,
             "y_size": 18
         },
-        "events": {},
-        "text_obj": {
+        "event_data": {},
+        "text_data": {
             "font": "pixal_35",
             "text": "",
             "antialias": false,
             "color": "#000000",
             "align": "center"
         },
-        "color": "#333333"
+        "obj_data": {
+            "color": "#333333"
+        }
     },
     "box": {
-        "base": {
+        "base_data": {
             "name": "box",
             "group": "boxGroup",
             "class": "PyRect"
         },
-        "rect": {
+        "rect_data": {
             "x_pos": 1,
             "y_pos": 17,
             "x_size": 1,
             "y_size": 1
         },
-        "events": {},
-        "text_obj": {
+        "event_data": {},
+        "text_data": {
             "font": "pixal_35",
             "text": "",
             "antialias": false,
             "color": "#000000",
             "align": "center"
         },
-        "color": "#ffffff"
+        "obj_data": {
+            "color": "#ffffff"
+        }
     },
     "circle": {
-        "base": {
+        "base_data": {
             "name": "circle",
             "group": "boxGroup",
             "class": "PyCircle"
         },
-        "rect": {
+        "rect_data": {
             "x_pos": 2,
-            "y_pos": 4,
-            "radius": 12.0
+            "y_pos": 4
         },
-        "events": {},
-        "text_obj": {
+        "event_data": {},
+        "text_data": {
             "font": "pixal_35",
             "text": "",
             "antialias": false,
             "color": "#000000",
             "align": "center"
         },
-        "color": "#ffffff"
+        "obj_data" : {
+            "color": "#ffffff",
+            "radius": 12.0
+        }
     },
     "button": {
-        "base": {
+        "base_data": {
             "name": "button",
             "group": "boxGroup",
             "class": "PyButton"
         },
-        "rect": {
+        "rect_data": {
             "x_pos": 4,
             "y_pos": 4,
             "x_size": 1,
             "y_size": 1
         },
-        "events": {},
-        "text_obj": {
+        "event_data": {},
+        "text_data": {
             "font": "pixal_35",
             "text": "",
             "antialias": false,
             "color": "#000000",
             "align": "center"
         },
-        "button": {
+        "obj_data": {
             "active": false,
             "disabled": false,
             "base_color": "#ffffff",

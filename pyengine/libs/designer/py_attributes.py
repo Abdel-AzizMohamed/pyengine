@@ -26,13 +26,12 @@ class Rectangle:
 
         x_size = rect_data.get("x_size")
         y_size = rect_data.get("y_size")
-        radius = rect_data.get("radius")
 
         x_pos = round(x_pos * (win_obj.screen_width / win_obj.y_ceil))
         y_pos = round(y_pos * (win_obj.screen_height / win_obj.x_ceil))
 
-        if radius:
-            x_size = y_size = radius * 2
+        if x_size is None or y_size is None:
+            x_size = y_size = 0
         else:
             x_size = round(x_size * (win_obj.screen_width / win_obj.y_ceil))
             y_size = round(y_size * (win_obj.screen_height / win_obj.x_ceil))
