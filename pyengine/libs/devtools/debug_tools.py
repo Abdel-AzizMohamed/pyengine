@@ -1,8 +1,8 @@
-"""Define a debugging tools moudle"""
-###### Python Packges ######
+"""Define a debugging tools module"""
+###### Python Packages ######
 import pygame
 
-###### My Packges ######
+###### My Packages ######
 from pyengine.window import win_obj
 from pyengine.libs.designer.py_attributes import Text
 from pyengine.libs.designer.designer import Designer
@@ -23,7 +23,7 @@ class Debugger:
 
     @staticmethod
     def display_grid():
-        """Display game gird accourding to x_ceil, y_ceil in window object"""
+        """Display game gird according to x_ceil, y_ceil in window object"""
         for row in range(win_obj.x_ceil):
             offset = row * (win_obj.screen_height / win_obj.x_ceil)
             pygame.draw.aaline(
@@ -109,7 +109,7 @@ class Debugger:
 
     @staticmethod
     def load_debugger_config(attributes):
-        """Set config data for debbuger tools"""
+        """Load config data"""
         Debugger.grid_color = attributes.get("grid_color")
 
         Debugger.fps_font = attributes.get("fps_font")
