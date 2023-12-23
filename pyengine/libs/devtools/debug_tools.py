@@ -22,7 +22,7 @@ class Debugger:
     object_rect_size = None
 
     @staticmethod
-    def display_grid():
+    def display_grid() -> None:
         """Display game gird according to x_ceil, y_ceil in window object"""
         for row in range(win_obj.x_ceil):
             offset = row * (win_obj.screen_height / win_obj.x_ceil)
@@ -43,7 +43,7 @@ class Debugger:
             )
 
     @staticmethod
-    def display_fps():
+    def display_fps() -> None:
         """Display game current fps"""
         fps_text = str(round(win_obj.clock.get_fps()))
         render_font = Text.fonts[Debugger.fps_font].render(
@@ -93,7 +93,7 @@ class Debugger:
         win_obj.screen.blit(render_font, (x_pos, y_pos))
 
     @staticmethod
-    def display_object_rect():
+    def display_object_rect() -> None:
         """Display all game objects rect"""
         elements = [
             item for group in Designer.game_elements.values() for item in group.values()
@@ -108,14 +108,18 @@ class Debugger:
             )
 
     @staticmethod
-    def load_debugger_config(attributes):
-        """Load config data"""
-        Debugger.grid_color = attributes.get("grid_color")
+    def load_debugger_config(config: dict) -> None:
+        """Load config data
 
-        Debugger.fps_font = attributes.get("fps_font")
-        Debugger.fps_antialias = attributes.get("fps_antialias")
-        Debugger.fps_color = attributes.get("fps_color")
-        Debugger.fps_align = attributes.get("fps_align")
+        Arguments:
+            config: dict contains config data {grid_color, fps_font, fps_antialias, fps_color, ...}
+        """
+        Debugger.grid_color = config.get("grid_color")
 
-        Debugger.object_rect_color = attributes.get("object_rect_color")
-        Debugger.object_rect_size = attributes.get("object_rect_size")
+        Debugger.fps_font = config.get("fps_font")
+        Debugger.fps_antialias = config.get("fps_antialias")
+        Debugger.fps_color = config.get("fps_color")
+        Debugger.fps_align = config.get("fps_align")
+
+        Debugger.object_rect_color = config.get("object_rect_color")
+        Debugger.object_rect_size = config.get("object_rect_size")
