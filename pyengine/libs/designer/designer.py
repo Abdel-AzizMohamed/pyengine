@@ -22,6 +22,7 @@ class Designer:
 
     elements_classes = {"PyRect": PyRect, "PyCircle": PyCircle, "PyButton": PyButton}
     game_elements = {}
+    exclude_groups = {}
 
     @staticmethod
     def create_element(element_attributes) -> None:
@@ -44,6 +45,7 @@ class Designer:
 
         if not Designer.game_elements.get(ele_group):
             Designer.game_elements[ele_group] = {}
+            Designer.exclude_groups[ele_group] = 1
 
         Designer.game_elements.get(ele_group)[ele_name] = element
 
@@ -83,7 +85,10 @@ class Designer:
     def draw_groups() -> None:
         """Draw all the groups elements"""
         elements = [
-            item for group in Designer.game_elements.values() for item in group.values()
+            item
+            for (name, group) in Designer.game_elements.items()
+            for item in group.values()
+            if Designer.exclude_groups.get(name)
         ]
 
         for element in elements:
@@ -104,3 +109,16 @@ class Designer:
                 x_pos = element.rect.x + element.align_x
                 y_pos = element.rect.y + element.align_y
                 win_obj.screen.blit(element.font_render, (x_pos, y_pos))
+
+    @staticmethod
+    def toggle_exclude(group_name: str) -> None:
+        """
+        Toggle visibility of the given group name
+
+        Arguments:
+            group_name: wanted group name
+        """
+        if Designer.exclude_groups.get(group_name) == 1:
+            Designer.exclude_groups[group_name] = 0
+        else:
+            Designer.exclude_groups[group_name] = 1
