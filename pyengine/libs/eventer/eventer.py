@@ -44,7 +44,7 @@ class Eventer:
                 module_class = getattr(import_module(module_path), str_class)
                 module_function = getattr(module_class, str_func)
             else:
-                module_function = getattr(import_module(module_path), str_func)
+                module_function = getattr(import_module(module_path), function_path)
 
             Eventer.elements_events[element.group].append(
                 (module_function, data, element)
@@ -61,12 +61,17 @@ class Eventer:
         if not events:
             return
 
-        for func_path, data in events.items():
-            module_path, str_func = func_path.split(":")
+        for import_data, data in events.items():
+            module_path, function_path = import_data.split(":")
 
-            func = getattr(import_module(module_path), str_func)
+            if function_path.find(".") != -1:
+                str_class, str_func = function_path.split(".")
+                module_class = getattr(import_module(module_path), str_class)
+                module_function = getattr(module_class, str_func)
+            else:
+                module_function = getattr(import_module(module_path), function_path)
 
-            Eventer.global_events.append((func, data))
+            Eventer.global_events.append((module_function, data))
 
     @staticmethod
     def trigger_events(event: pygame.event) -> None:

@@ -13,3 +13,6 @@ cspell.json
 #my ignore
 key
 pseudo/
+fonts/
+sounds/
+ui_data/

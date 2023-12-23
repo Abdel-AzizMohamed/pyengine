@@ -11,6 +11,7 @@ from pyengine.libs.designer.designer import Designer
 from pyengine.libs.designer.py_attributes import Text
 from pyengine.libs.devtools.devtools import DevTools
 from pyengine.libs.devtools.debug_tools import Debugger
+from pyengine.libs.mixer import Sound, Music
 
 from pyengine.utils.json_handler import read_json
 
@@ -68,10 +69,14 @@ class PyEngine:
 
         game_config = read_json(CONFIG_PATH)
 
-        fonts_attrs = game_config.get("fonts_data")
-        devtools_attrs = game_config.get("devtools_data")
-        events_attrs = game_config.get("events_data")
+        fonts_data = game_config.get("fonts_data")
+        devtools_data = game_config.get("devtools_data")
+        events_data = game_config.get("events_data")
+        sounds_data = game_config.get("sounds_data")
+        music_data = game_config.get("music_data")
 
-        Text.load_fonts(fonts_attrs)
-        Debugger.load_debugger_config(devtools_attrs)
-        Eventer.load_global_events(events_attrs)
+        Text.load_fonts(fonts_data)
+        Debugger.load_debugger_config(devtools_data)
+        Eventer.load_global_events(events_data)
+        Sound.load_sounds(sounds_data)
+        Music.load_music(music_data)
