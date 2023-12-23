@@ -2,6 +2,7 @@
 ###### Python Packages ######
 ###### My Packages ######
 from pyengine.libs.designer.py_attributes import Rectangle, Text
+from pyengine.libs.eventer.eventer import Eventer
 
 # pylint: disable=R0903
 
@@ -85,3 +86,31 @@ class PyButton(PyBase, Rectangle, Text):
         self.hover_color = obj_data.get("hover_color")
         self.select_color = obj_data.get("select_color")
         self.disabled_color = obj_data.get("disabled_color")
+
+        Eventer.add_object_event(
+            self,
+            {
+                "pyengine.libs.eventer.ui_events:ButtonEvents.button_hover": {
+                    "event": "mousein",
+                    "args": [],
+                }
+            },
+        )
+        Eventer.add_object_event(
+            self,
+            {
+                "pyengine.libs.eventer.ui_events:ButtonEvents.button_hover": {
+                    "event": "mouseout",
+                    "args": [False],
+                }
+            },
+        )
+        Eventer.add_object_event(
+            self,
+            {
+                "pyengine.libs.eventer.ui_events:ButtonEvents.button_select": {
+                    "event": "leftclick",
+                    "args": [],
+                }
+            },
+        )

@@ -36,12 +36,19 @@ class Eventer:
         if not Eventer.elements_events.get(element.group):
             Eventer.elements_events[element.group] = []
 
-        for func_path, data in event_data.items():
-            module_path, str_func = func_path.split(":")
+        for import_data, data in event_data.items():
+            module_path, function_path = import_data.split(":")
 
-            func = getattr(import_module(module_path), str_func)
+            if function_path.find(".") != -1:
+                str_class, str_func = function_path.split(".")
+                module_class = getattr(import_module(module_path), str_class)
+                module_function = getattr(module_class, str_func)
+            else:
+                module_function = getattr(import_module(module_path), str_func)
 
-            Eventer.elements_events[element.group].append((func, data, element))
+            Eventer.elements_events[element.group].append(
+                (module_function, data, element)
+            )
 
     @staticmethod
     def load_global_events(events: dict) -> None:
@@ -80,6 +87,10 @@ class Eventer:
             args.insert(0, element[2])
             rect = element[2].rect
 
+            if not mouse_collision(rect) and event_type == "mouseout":
+                function(*args)
+            if mouse_collision(rect) and event_type == "mousein":
+                function(*args)
             if Eventer.check_mouse_event(event, event_type) and mouse_collision(rect):
                 function(*args)
             if Eventer.check_keyboard_event(event, event_type):
@@ -124,6 +135,8 @@ class Eventer:
             event: event object from pygame to check for events
             event_type: event type (leftclick, rightclick)
         """
+        if event_type.find("_") == -1:
+            return False
 
         key_action, key = event_type.split("_")
 

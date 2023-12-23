@@ -79,13 +79,13 @@
     "rect_data": {
       "x_pos": 4,
       "y_pos": 4,
-      "x_size": 1,
+      "x_size": 3,
       "y_size": 1
     },
     "event_data": {},
     "text_data": {
       "font": "pixal_35",
-      "text": "",
+      "text": "button",
       "antialias": false,
       "color": "#000000",
       "align": "center"
@@ -94,7 +94,7 @@
       "active": false,
       "disabled": false,
       "base_color": "#ffffff",
-      "hover_color": "#eeeeee",
+      "hover_color": "#FF0000",
       "select_color": "#aaaaaa",
       "disabled_color": "#000000"
     }
