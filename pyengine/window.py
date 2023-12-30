@@ -83,6 +83,8 @@ class Resolution:
 class FrameRate:
     """Defines helper class that contains framerate configuration"""
 
+    # TODO: add a way to change game fps during the run time
+
     def __init__(self, fps: int) -> None:
         """
         Init a new clock object
@@ -105,6 +107,8 @@ class FrameRate:
 
 class Window(Resolution, FrameRate):
     """Main window class that contains all the configuration"""
+
+    # TODO: add option to window data that sets the game to full screen
 
     def __init__(self, window_data: dict) -> None:
         """

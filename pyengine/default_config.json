@@ -18,7 +18,10 @@
     "object_rect_color": "#ff0000",
     "object_rect_size": 1
   },
-  "events_data": {},
+  "events_data": {
+    "temp:print_timer": { "event": "none", "args": [] },
+    "temp:check_timer": { "event": "none", "args": [] }
+  },
   "sounds_data": {
     "pong": { "sound_path": "sounds/pong.ogg", "sound_volume": 0.5 }
   },
