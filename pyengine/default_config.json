@@ -18,14 +18,23 @@
     "object_rect_color": "#ff0000",
     "object_rect_size": 1
   },
-  "events_data": {
-    "temp:print_timer": { "event": "none", "args": [] },
-    "temp:check_timer": { "event": "none", "args": [] }
-  },
+  "events_data": {},
   "sounds_data": {
     "pong": { "sound_path": "sounds/pong.ogg", "sound_volume": 0.5 }
   },
   "music_data": {
     "bgm": { "music_path": "sounds/bgm.mp3", "music_volume": 0.5 }
+  },
+  "groups_data": {
+    "main_menu": 1,
+    "gameplay": 1,
+    "boxGroup": 1
+  },
+  "path_data": {
+    "ui_data_path": "ui_data",
+    "sprites_path": ""
+  },
+  "default_data": {
+    "default_music": "bgm"
   }
 }

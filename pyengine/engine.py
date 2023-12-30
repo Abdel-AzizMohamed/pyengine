@@ -1,9 +1,10 @@
 """Project start point"""
+# pylint: disable=E1101
+# pylint: disable=W0511
 ###### Python Packages ######
 import sys
 import pygame
 
-# pylint: disable=E1101
 ###### My Packages ######
 from pyengine import win_obj, CONFIG_PATH
 from pyengine.libs.mixer import Sound, Music
@@ -31,9 +32,20 @@ class PyEngine:
     none_events = []
 
     @staticmethod
-    def mainloop(debug: bool = False) -> None:
+    def run(debug: bool = False):
         """
-        Start game mainloop
+        Run the app
+
+        Arguments:
+            debug: Display debugging tools
+        """
+        PyEngine.load_data()
+        PyEngine.mainloop(debug)
+
+    @staticmethod
+    def mainloop(debug: bool) -> None:
+        """
+        game mainloop
 
         Arguments:
             debug: Display debugging tools
@@ -64,7 +76,7 @@ class PyEngine:
     @staticmethod
     def check_events(debug: bool) -> None:
         """
-        Trigger all game events
+        Check all game events
 
         Arguments:
             debug: Trigger debugging events if true
@@ -83,6 +95,7 @@ class PyEngine:
     @staticmethod
     def load_data() -> None:
         """Loads game data"""
+        # TODO: Fix the data check and add it here before loading the data
         # config_check(CONFIG_PATH)
 
         # for file in walk_search("UiData"):
@@ -95,14 +108,23 @@ class PyEngine:
         events_data = game_config.get("events_data")
         sounds_data = game_config.get("sounds_data")
         music_data = game_config.get("music_data")
+        groups_data = game_config.get("groups_data")
+        default_data = game_config.get("default_data")
+        path_data = game_config.get("path_data")
 
         Text.load_fonts(fonts_data)
         Debugger.load_debugger_config(devtools_data)
         Sound.load_sounds(sounds_data)
-        Music.load_music(music_data)
 
-        for file in walk_search("ui_data"):
+        Music.load_music(music_data)
+        if default_data.get("default_music"):
+            Music.play_music(default_data.get("default_music"))
+
+        for file in walk_search(path_data.get("ui_data_path")):
             Designer.create_from_file(file)
+
+        for group, value in groups_data.items():
+            Designer.exclude_groups[group] = value
 
         PyEngine.none_events = Eventer.load_global_events(
             events_data, Designer.get_element
