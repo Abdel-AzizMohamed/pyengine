@@ -115,7 +115,7 @@ class Window(Resolution, FrameRate):
         Init a new window object
 
         Arguments:
-            window_data: dict contains window data {window_size, grid_precision_level, fps, window_title}
+            window_data: dict contains window data {window_size, grid_precision_level, ...}
         """
 
         window_size = window_data.get("window_size")

@@ -1,4 +1,8 @@
-"""Define the designer package start point"""
+"""
+Define the designer package start point
+
+that its main purpose is to work with the game graphics in much easier way
+"""
 ###### Python Packages ######
 from typing import Union
 import pygame
@@ -13,11 +17,11 @@ from pyengine.utils.json_handler import read_json
 
 class Designer:
     """
-    Define the main graphic helper
+    Define the main graphic helper class
 
     Attributes:
-            elements_classes: Contains all the elements classes
-            game_elements: dict of all game elements
+        elements_classes: Contains all the elements classes
+        game_elements: dict of all game elements
     """
 
     elements_classes = {"PyRect": PyRect, "PyCircle": PyCircle, "PyButton": PyButton}
@@ -25,24 +29,20 @@ class Designer:
     exclude_groups = {}
 
     @staticmethod
-    def create_element(element_attributes) -> None:
+    def create_element(element_attributes: dict) -> None:
         """
-        creates a new element
+        creates a new element from a given data
 
         Arguments:
-            element_attributes: element attributes (text, color, ...)
+            element_attributes: element data (text, color, ...)
         """
 
         base_data = element_attributes.get("base_data")
+        event_data = element_attributes.get("event_data")
 
         ele_group = base_data.get("group")
         ele_name = base_data.get("name")
         ele_class = base_data.get("class")
-
-        event_data = element_attributes.get("event_data")
-        for data in event_data.values():
-            if data.get("params"):
-                data["params"] = Designer.get_element(data["params"])
 
         element = Designer.elements_classes[ele_class](element_attributes)
 
@@ -51,6 +51,7 @@ class Designer:
         if not Designer.game_elements.get(ele_group):
             Designer.game_elements[ele_group] = {}
             Designer.exclude_groups[ele_group] = 1
+            Eventer.exclude_groups[ele_group] = 1
 
         Designer.game_elements.get(ele_group)[ele_name] = element
 
@@ -88,7 +89,7 @@ class Designer:
 
     @staticmethod
     def draw_groups() -> None:
-        """Draw all the groups elements"""
+        """Draw all active groups"""
         elements = [
             item
             for (name, group) in Designer.game_elements.items()

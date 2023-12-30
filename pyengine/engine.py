@@ -139,6 +139,7 @@ class PyEngine:
 
         for group, value in groups_data.items():
             Designer.exclude_groups[group] = value
+            Eventer.exclude_groups[group] = value
 
         PyEngine.none_events = Eventer.load_global_events(
             events_data, Designer.get_element

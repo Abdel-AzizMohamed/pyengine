@@ -36,7 +36,6 @@ class Eventer:
 
         if not Eventer.elements_events.get(element.group):
             Eventer.elements_events[element.group] = []
-            Eventer.exclude_groups[element.group] = 1
 
         for import_data, data in event_data.items():
             module_path, function_path = import_data.split(":")
