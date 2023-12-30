@@ -14,6 +14,8 @@ from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton
 
 from pyengine.utils.json_handler import read_json
 
+#### Type Hinting ####
+
 
 class Designer:
     """

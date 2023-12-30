@@ -1,25 +1,12 @@
 """Contains all the basic ui elements"""
+# pylint: disable=R0903
 ###### Python Packages ######
 ###### My Packages ######
+from pyengine.libs.designer.py_base import PyBase
 from pyengine.libs.designer.py_attributes import Rectangle, Text
 from pyengine.libs.eventer.eventer import Eventer
 
-# pylint: disable=R0903
-
-
-class PyBase:
-    """Define a base class for basic shapes"""
-
-    def __init__(self, attributes: dict) -> None:
-        """
-        init base data to elements
-
-        Attributes:
-            attributes: contains all the base data
-        """
-        self.name = attributes.get("name")
-        self.group = attributes.get("group")
-        self.type = attributes.get("class")
+#### Type Hinting ####
 
 
 class PyRect(PyBase, Rectangle, Text):
@@ -27,10 +14,10 @@ class PyRect(PyBase, Rectangle, Text):
 
     def __init__(self, attributes: dict) -> None:
         """
-        init a new Rect object
+        Init a new Rect object
 
         Attributes:
-            attributes: contains all the rect data
+            attributes: contains all the rect element data
         """
         PyBase.__init__(self, attributes.get("base_data"))
         Rectangle.__init__(self, attributes.get("rect_data"))
@@ -46,7 +33,7 @@ class PyCircle(PyBase, Rectangle, Text):
 
     def __init__(self, attributes: dict) -> None:
         """
-        init a new Circle object
+        Init a new circle element object
 
         Attributes:
             attributes: contains all the circle data
@@ -68,7 +55,7 @@ class PyButton(PyBase, Rectangle, Text):
 
     def __init__(self, attributes: dict) -> None:
         """
-        init a new Button object
+        Init a new button element object
 
         Attributes:
             attributes: contains all the button data
