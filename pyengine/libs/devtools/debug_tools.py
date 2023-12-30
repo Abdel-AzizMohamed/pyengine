@@ -3,7 +3,7 @@
 import pygame
 
 ###### My Packages ######
-from pyengine.window import win_obj
+from pyengine import win_obj
 from pyengine.libs.designer.py_attributes import Text
 from pyengine.libs.designer.designer import Designer
 

@@ -3,7 +3,7 @@
 import pygame
 
 ###### My Packages ######
-from pyengine.window import win_obj
+from pyengine import win_obj
 
 # pylint: disable=R0903
 # pylint: disable=R0902

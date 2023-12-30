@@ -4,7 +4,7 @@ import time
 import pygame
 
 ###### My Packages ######
-from pyengine.window import FrameRate, Resolution
+from pyengine import FrameRate, Resolution
 
 
 def test_set_resolution():

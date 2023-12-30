@@ -4,7 +4,7 @@ from typing import Union
 import pygame
 
 ###### My Packages ######
-from pyengine.window import win_obj
+from pyengine import win_obj
 from pyengine.libs.eventer.eventer import Eventer
 from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton
 
@@ -39,9 +39,14 @@ class Designer:
         ele_name = base_data.get("name")
         ele_class = base_data.get("class")
 
+        event_data = element_attributes.get("event_data")
+        for data in event_data.values():
+            if data.get("params"):
+                data["params"] = Designer.get_element(data["params"])
+
         element = Designer.elements_classes[ele_class](element_attributes)
 
-        Eventer.add_object_event(element, element_attributes.get("event_data"))
+        Eventer.add_object_event(element, event_data)
 
         if not Designer.game_elements.get(ele_group):
             Designer.game_elements[ele_group] = {}
@@ -120,5 +125,7 @@ class Designer:
         """
         if Designer.exclude_groups.get(group_name) == 1:
             Designer.exclude_groups[group_name] = 0
+            Eventer.exclude_groups[group_name] = 0
         else:
             Designer.exclude_groups[group_name] = 1
+            Eventer.exclude_groups[group_name] = 1

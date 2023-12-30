@@ -5,33 +5,54 @@ import pygame
 
 # pylint: disable=E1101
 ###### My Packages ######
-from pyengine.window import win_obj, CONFIG_PATH
-from pyengine.libs.eventer.eventer import Eventer
-from pyengine.libs.designer.designer import Designer
-from pyengine.libs.designer.py_attributes import Text
-from pyengine.libs.devtools.devtools import DevTools
-from pyengine.libs.devtools.debug_tools import Debugger
+from pyengine import win_obj, CONFIG_PATH
 from pyengine.libs.mixer import Sound, Music
 
-from pyengine.utils.json_handler import read_json
+from pyengine.libs.eventer.eventer import Eventer
 
-# from pyengine.utils.path_handler import walk_search
+from pyengine.libs.designer.designer import Designer
+from pyengine.libs.designer.py_attributes import Text
+
+from pyengine.libs.devtools.devtools import DevTools
+from pyengine.libs.devtools.debug_tools import Debugger
+
+
+from pyengine.utils.json_handler import read_json
+from pyengine.utils.collision_handler import object_collision
+from pyengine.utils.path_handler import walk_search
+
 # from pyengine.utils.errors_handler.data_checker import config_check, ui_check
+#### Type Hinting ####
 
 
 class PyEngine:
     """Main class that works as a connector for all packages"""
 
+    none_events = []
+
     @staticmethod
     def mainloop(debug: bool = False) -> None:
         """
-        Game mainloop
+        Start game mainloop
 
         Arguments:
             debug: Display debugging tools
         """
         while True:
-            PyEngine.trigger_events(debug)
+            PyEngine.check_events(debug)
+
+            for global_event in PyEngine.none_events:
+                function = global_event[0]
+                event_type = global_event[1].get("event")
+                args = global_event[1].get("args").copy()
+
+                if event_type == "rectin":
+                    rect_1 = args.pop(0).rect
+                    rect_2 = args.pop(0).rect
+                    if object_collision(rect_1, rect_2):
+                        function(*args)
+                else:
+                    function(*args)
 
             Designer.draw_groups()
             if debug:
@@ -41,7 +62,7 @@ class PyEngine:
             win_obj.clock.tick(win_obj.fps)
 
     @staticmethod
-    def trigger_events(debug: bool) -> None:
+    def check_events(debug: bool) -> None:
         """
         Trigger all game events
 
@@ -77,6 +98,12 @@ class PyEngine:
 
         Text.load_fonts(fonts_data)
         Debugger.load_debugger_config(devtools_data)
-        Eventer.load_global_events(events_data)
         Sound.load_sounds(sounds_data)
         Music.load_music(music_data)
+
+        for file in walk_search("ui_data"):
+            Designer.create_from_file(file)
+
+        PyEngine.none_events = Eventer.load_global_events(
+            events_data, Designer.get_element
+        )

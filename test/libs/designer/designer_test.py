@@ -2,7 +2,7 @@
 ###### Python Packages ######
 
 ###### My Packages ######
-from pyengine.window import CONFIG_PATH
+from pyengine import CONFIG_PATH
 
 from pyengine.libs.designer.designer import Designer
 from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton

@@ -3,7 +3,7 @@
 import pygame
 
 ###### My Packages ######
-from pyengine.window import CONFIG_PATH
+from pyengine import CONFIG_PATH
 from pyengine.libs.designer.py_attributes import Rectangle, Text
 
 from pyengine.utils.json_handler import read_json

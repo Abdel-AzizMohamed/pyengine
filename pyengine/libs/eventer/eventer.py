@@ -20,6 +20,7 @@ class Eventer:
 
     elements_events = {}
     global_events = []
+    exclude_groups = {}
 
     @staticmethod
     def add_object_event(element: object, event_data: dict) -> None:
@@ -35,6 +36,7 @@ class Eventer:
 
         if not Eventer.elements_events.get(element.group):
             Eventer.elements_events[element.group] = []
+            Eventer.exclude_groups[element.group] = 1
 
         for import_data, data in event_data.items():
             module_path, function_path = import_data.split(":")
@@ -51,15 +53,14 @@ class Eventer:
             )
 
     @staticmethod
-    def load_global_events(events: dict) -> None:
+    def load_global_events(events: dict, element_grabber: object) -> list:
         """
         Load global events from config file
 
         Arguments:
             event_data: dict contains event_data {event, args}
         """
-        if not events:
-            return
+        non_events = []
 
         for import_data, data in events.items():
             module_path, function_path = import_data.split(":")
@@ -71,7 +72,16 @@ class Eventer:
             else:
                 module_function = getattr(import_module(module_path), function_path)
 
-            Eventer.global_events.append((module_function, data))
+            if data.get("event") == "none":
+                non_events.append((module_function, data))
+            elif data.get("event") == "rectin":
+                data["args"][0] = element_grabber(data["args"][0])
+                data["args"][1] = element_grabber(data["args"][1])
+                non_events.append((module_function, data))
+            else:
+                Eventer.global_events.append((module_function, data))
+
+        return non_events
 
     @staticmethod
     def trigger_events(event: pygame.event) -> None:
@@ -82,12 +92,16 @@ class Eventer:
             event: event object from pygame to check for events
         """
         elements = [
-            element for group in Eventer.elements_events.values() for element in group
+            element
+            for (name, group) in Eventer.elements_events.items()
+            for element in group
+            if Eventer.exclude_groups.get(name)
         ]
 
         for element in elements:
             function = element[0]
             event_type = element[1].get("event")
+
             args = element[1].get("args").copy()
             args.insert(0, element[2])
             rect = element[2].rect
