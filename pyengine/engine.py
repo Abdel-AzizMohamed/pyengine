@@ -2,6 +2,7 @@
 # pylint: disable=E1101
 # pylint: disable=W0511
 ###### Python Packages ######
+import os
 import sys
 import pygame
 
@@ -18,7 +19,7 @@ from pyengine.libs.devtools.devtools import DevTools
 from pyengine.libs.devtools.debug_tools import Debugger
 
 
-from pyengine.utils.json_handler import read_json
+from pyengine.utils.json_handler import read_json, write_json
 from pyengine.utils.collision_handler import object_collision
 from pyengine.utils.path_handler import walk_search
 
@@ -30,6 +31,8 @@ class PyEngine:
     """Main class that works as a connector for all packages"""
 
     none_events = []
+    save_data = {}
+    auto_save = None
 
     @staticmethod
     def run(debug: bool = False):
@@ -89,6 +92,9 @@ class PyEngine:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+            if event.type == PyEngine.auto_save:
+                for data in PyEngine.save_data.values():
+                    write_json(data.get("path"), data.get("data"))
 
             Eventer.trigger_events(event)
 
@@ -120,8 +126,16 @@ class PyEngine:
         if default_data.get("default_music"):
             Music.play_music(default_data.get("default_music"))
 
-        for file in walk_search(path_data.get("ui_data_path")):
-            Designer.create_from_file(file)
+        for save_file_path in walk_search(path_data.get("save_data_path")):
+            save_file_name = os.path.splitext(os.path.basename(save_file_path))[0]
+            save_file_data = read_json(save_file_path)
+            PyEngine.save_data[save_file_name] = {
+                "data": save_file_data,
+                "path": save_file_path,
+            }
+
+        for ui_file in walk_search(path_data.get("ui_data_path")):
+            Designer.create_from_file(ui_file)
 
         for group, value in groups_data.items():
             Designer.exclude_groups[group] = value
@@ -129,3 +143,32 @@ class PyEngine:
         PyEngine.none_events = Eventer.load_global_events(
             events_data, Designer.get_element
         )
+
+        if default_data.get("default_auto_save"):
+            PyEngine.auto_save = pygame.USEREVENT + 1
+            pygame.time.set_timer(
+                PyEngine.auto_save, default_data.get("default_auto_save")
+            )
+
+    @staticmethod
+    def update_data(file_name: str, data_name: str, new_data: any) -> None:
+        """
+        Update data from a save file
+
+        Arguments:
+            file_name: save file name (without extension)
+            data_name: the name of the data that will be updated
+            new_data: the new data the will be replaced with the current data
+        """
+        PyEngine.save_data[file_name]["data"][data_name] = new_data
+
+    @staticmethod
+    def get_data(file_name: str, data_name: str) -> any:
+        """
+        Update data from a save file
+
+        Arguments:
+            file_name: save file name (without extension)
+            data_name: the name of the data
+        """
+        return PyEngine.save_data.get(file_name).get("data").get(data_name)

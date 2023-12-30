@@ -31,10 +31,12 @@
     "boxGroup": 1
   },
   "path_data": {
+    "save_data_path": "save_data",
     "ui_data_path": "ui_data",
     "sprites_path": ""
   },
   "default_data": {
-    "default_music": "bgm"
+    "default_music": "bgm",
+    "default_auto_save": 1000
   }
 }
