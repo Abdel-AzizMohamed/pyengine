@@ -13,6 +13,7 @@ from pyengine.libs.mixer import Sound, Music
 from pyengine.libs.eventer.eventer import Eventer
 
 from pyengine.libs.designer.designer import Designer
+from pyengine.libs.designer.py_base import PyImageBase
 from pyengine.libs.designer.py_attributes import Text
 
 from pyengine.libs.devtools.devtools import DevTools
@@ -133,6 +134,12 @@ class PyEngine:
                 "data": save_file_data,
                 "path": save_file_path,
             }
+
+        images = {}
+        for image_path in walk_search(path_data.get("sprites_path")):
+            image_name = os.path.splitext(os.path.basename(image_path))[0]
+            images[image_name] = image_path
+        PyImageBase.load_images(images)
 
         for ui_file in walk_search(path_data.get("ui_data_path")):
             Designer.create_from_file(ui_file)

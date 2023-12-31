@@ -33,10 +33,10 @@
   "path_data": {
     "save_data_path": "save_data",
     "ui_data_path": "ui_data",
-    "sprites_path": ""
+    "sprites_path": "sprites"
   },
   "default_data": {
-    "default_music": "bgm",
-    "default_auto_save": 1000
+    "default_music": "",
+    "default_auto_save": 10000
   }
 }

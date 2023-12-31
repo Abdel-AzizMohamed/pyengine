@@ -11,6 +11,7 @@ import pygame
 from pyengine import win_obj
 from pyengine.libs.eventer.eventer import Eventer
 from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton
+from pyengine.libs.designer.py_sprite import PyImage
 
 from pyengine.utils.json_handler import read_json
 
@@ -26,7 +27,12 @@ class Designer:
         game_elements: dict of all game elements
     """
 
-    elements_classes = {"PyRect": PyRect, "PyCircle": PyCircle, "PyButton": PyButton}
+    elements_classes = {
+        "PyRect": PyRect,
+        "PyCircle": PyCircle,
+        "PyButton": PyButton,
+        "PyImage": PyImage,
+    }
     game_elements = {}
     exclude_groups = {}
 
@@ -112,6 +118,8 @@ class Designer:
                 )
             elif element.type == "PyButton":
                 pygame.draw.rect(win_obj.screen, element.active_color, element.rect)
+            elif element.type == "PyImage":
+                win_obj.screen.blit(element.image, element.rect)
 
             if getattr(element, "font_render"):
                 x_pos = element.rect.x + element.align_x

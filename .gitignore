@@ -1,6 +1,5 @@
 # tmp files
 *.swp
-temp*.py
 .vscode/
 cspell.json
 
@@ -9,12 +8,3 @@ cspell.json
 
 #linux ignore
 *.sh
-
-#my ignore
-key
-pseudo/
-fonts/
-sounds/
-ui_data/
-save_data/
-errors_handler/
