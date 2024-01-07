@@ -19,9 +19,25 @@
     "object_rect_size": 1
   },
   "events_data": {
-    "pyengine.libs.devtools.devtools:DevTools.toggle_tool": {
-      "event": "down:K_F10",
+    "debug_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F1",
+      "args": ["all"]
+    },
+    "grid_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F10",
       "args": ["show_grid"]
+    },
+    "fps_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F11",
+      "args": ["show_fps"]
+    },
+    "object_rect_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F12",
+      "args": ["show_object_rect"]
     }
   },
   "sounds_data": {

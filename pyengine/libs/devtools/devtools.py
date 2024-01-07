@@ -1,10 +1,8 @@
 """Define start point for Devtools Package"""
+# pylint: disable=R0903
 ###### Python Packages ######
 ###### My Packages ######
 from pyengine.libs.devtools.debug_tools import Debugger
-from pyengine.libs.eventer.eventer import Eventer
-
-# pylint: disable=R0903
 
 
 class DevTools:
@@ -32,7 +30,17 @@ class DevTools:
 
     @staticmethod
     def toggle_tool(tool: str) -> None:
-        if getattr(DevTools, tool):
+        """
+        Toggle Debug tool/tools
+
+        Arguments:
+            tool: tool name if the value is 'all' then all tools will be toggled
+        """
+        if tool == "all":
+            DevTools.show_grid = not DevTools.show_grid
+            DevTools.show_fps = not DevTools.show_fps
+            DevTools.show_object_rect = not DevTools.show_object_rect
+        elif getattr(DevTools, tool):
             setattr(DevTools, tool, False)
         else:
             setattr(DevTools, tool, True)

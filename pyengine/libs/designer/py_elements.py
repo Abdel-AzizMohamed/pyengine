@@ -77,8 +77,9 @@ class PyButton(PyBase, Rectangle, Text):
         Eventer.add_object_event(
             self,
             {
-                "pyengine.libs.eventer.ui_events:ButtonEvents.button_hover": {
-                    "event": "mousein",
+                "button_hover": {
+                    "function_path": "pyengine.libs.eventer.ui_events:ButtonEvents.button_hover",
+                    "event_type": "mousein",
                     "args": [],
                 }
             },
@@ -86,8 +87,9 @@ class PyButton(PyBase, Rectangle, Text):
         Eventer.add_object_event(
             self,
             {
-                "pyengine.libs.eventer.ui_events:ButtonEvents.button_hover": {
-                    "event": "mouseout",
+                "button_unhover": {
+                    "function_path": "pyengine.libs.eventer.ui_events:ButtonEvents.button_hover",
+                    "event_type": "mouseout",
                     "args": [False],
                 }
             },
@@ -95,8 +97,9 @@ class PyButton(PyBase, Rectangle, Text):
         Eventer.add_object_event(
             self,
             {
-                "pyengine.libs.eventer.ui_events:ButtonEvents.button_select": {
-                    "event": "leftclick",
+                "button_select": {
+                    "function_path": "pyengine.libs.eventer.ui_events:ButtonEvents.button_select",
+                    "event_type": "leftclick",
                     "args": [],
                 }
             },

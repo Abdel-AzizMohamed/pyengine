@@ -16,7 +16,7 @@ class Eventer:
     exclude_groups = {}
 
     @staticmethod
-    def add_object_event(element: object, event_data: dict) -> None:
+    def add_object_event(element: object, events_data: dict) -> None:
         """
         Add event to given element
 
@@ -24,14 +24,14 @@ class Eventer:
             element: element the preform the event
             event_data: dict contains event_data {event, args}
         """
-        if not event_data:
+        if events_data is None:
             return
 
         if not Eventer.elements_events.get(element.group):
             Eventer.elements_events[element.group] = []
 
-        for import_data, data in event_data.items():
-            module_path, function_path = import_data.split(":")
+        for event_data in events_data.values():
+            module_path, function_path = event_data.get("function_path").split(":")
 
             if function_path.find(".") != -1:
                 str_class, str_func = function_path.split(".")
@@ -41,7 +41,7 @@ class Eventer:
                 module_function = getattr(import_module(module_path), function_path)
 
             Eventer.elements_events[element.group].append(
-                (module_function, data, element)
+                (module_function, event_data, element)
             )
 
     @staticmethod
@@ -54,8 +54,8 @@ class Eventer:
         """
         non_events = []
 
-        for import_data, data in events.items():
-            module_path, function_path = import_data.split(":")
+        for event in events.values():
+            module_path, function_path = event.get("function_path").split(":")
 
             if function_path.find(".") != -1:
                 str_class, str_func = function_path.split(".")
@@ -64,14 +64,14 @@ class Eventer:
             else:
                 module_function = getattr(import_module(module_path), function_path)
 
-            if data.get("event") == "none":
-                non_events.append((module_function, data))
-            elif data.get("event") == "rectin":
-                data["args"][0] = element_grabber(data["args"][0])
-                data["args"][1] = element_grabber(data["args"][1])
-                non_events.append((module_function, data))
+            if event.get("event_type") == "none":
+                non_events.append((module_function, event))
+            elif event.get("event_type") == "rectin":
+                event["args"][0] = element_grabber(event["args"][0])
+                event["args"][1] = element_grabber(event["args"][1])
+                non_events.append((module_function, event))
             else:
-                Eventer.global_events.append((module_function, data))
+                Eventer.global_events.append((module_function, event))
 
         return non_events
 
@@ -92,7 +92,7 @@ class Eventer:
 
         for element in elements:
             function = element[0]
-            event_type = element[1].get("event")
+            event_type = element[1].get("event_type")
 
             args = element[1].get("args").copy()
             args.insert(0, element[2])
@@ -109,7 +109,7 @@ class Eventer:
 
         for global_event in Eventer.global_events:
             function = global_event[0]
-            event_type = global_event[1].get("event")
+            event_type = global_event[1].get("event_type")
             args = global_event[1].get("args").copy()
 
             if Eventer.check_mouse_event(event, event_type):
