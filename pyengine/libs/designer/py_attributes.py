@@ -34,6 +34,8 @@ class Rectangle:
             rect_data: dict contains rect data {x_pos, y_pos, x_size, y_size}
         """
 
+        anchor_point = rect_data.get("anchor_point")
+
         x_pos = rect_data.get("x_pos")
         y_pos = rect_data.get("y_pos")
         x_offset = rect_data.get("x_offset")
@@ -55,7 +57,10 @@ class Rectangle:
                 round(y_size * (win_obj.screen_height / win_obj.x_ceil)) + y_padding
             )
 
-        return pygame.Rect((x_pos, y_pos), (x_size, y_size))
+        rect = pygame.Rect((0, 0), (x_size, y_size))
+        setattr(rect, anchor_point, (x_pos, y_pos))
+
+        return rect
 
 
 class Text:
