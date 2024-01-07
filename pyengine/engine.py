@@ -18,8 +18,6 @@ from pyengine.libs.designer.py_base import PyImageBase
 from pyengine.libs.designer.py_attributes import Text
 
 from pyengine.libs.devtools.devtools import DevTools
-from pyengine.libs.devtools.debug_tools import Debugger
-
 
 from pyengine.utils.json_handler import read_json, write_json
 from pyengine.utils.collision_handler import object_collision
@@ -121,7 +119,7 @@ class PyEngine:
         path_data = game_config.get("path_data")
 
         Text.load_fonts(fonts_data)
-        Debugger.load_debugger_config(devtools_data)
+        DevTools.load_devtools(devtools_data)
         Sound.load_sounds(sounds_data)
 
         Music.load_music(music_data)

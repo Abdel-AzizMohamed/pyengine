@@ -11,13 +11,6 @@ from pyengine.utils.collision_handler import mouse_collision
 class Eventer:
     """Define main event class"""
 
-    keyboard_keys = {
-        "right": 1073741903,
-        "left": 1073741904,
-        "down": 1073741905,
-        "up": 1073741906,
-    }
-
     elements_events = {}
     global_events = []
     exclude_groups = {}
@@ -153,20 +146,16 @@ class Eventer:
             event: event object from pygame to check for events
             event_type: event type (leftclick, rightclick)
         """
-        if event_type.find("_") == -1:
+        if event_type.find(":") == -1:
             return False
 
-        key_action, key = event_type.split("_")
+        key_action, key = event_type.split(":")
 
         if event.type == pygame.KEYDOWN and key_action == "down":
-            if len(key) == 1 and event.key == ord(key):
-                return True
-            if event.key == Eventer.keyboard_keys.get(key):
+            if event.key == getattr(pygame, key):
                 return True
         if event.type == pygame.KEYUP and key_action == "up":
-            if len(key) == 1 and event.key == ord(key):
-                return True
-            if event.key == Eventer.keyboard_keys.get(key):
+            if event.key == getattr(pygame, key):
                 return True
 
         return False

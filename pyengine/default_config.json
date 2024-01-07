@@ -18,7 +18,12 @@
     "object_rect_color": "#ff0000",
     "object_rect_size": 1
   },
-  "events_data": {},
+  "events_data": {
+    "pyengine.libs.devtools.devtools:DevTools.toggle_tool": {
+      "event": "down:K_F10",
+      "args": ["show_grid"]
+    }
+  },
   "sounds_data": {
     "pong": { "sound_path": "sounds/pong.ogg", "sound_volume": 0.5 }
   },
