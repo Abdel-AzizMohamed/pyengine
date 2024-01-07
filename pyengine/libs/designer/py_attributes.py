@@ -36,18 +36,24 @@ class Rectangle:
 
         x_pos = rect_data.get("x_pos")
         y_pos = rect_data.get("y_pos")
+        x_offset = rect_data.get("x_offset")
+        y_offset = rect_data.get("y_offset")
 
         x_size = rect_data.get("x_size")
         y_size = rect_data.get("y_size")
+        x_padding = rect_data.get("x_padding")
+        y_padding = rect_data.get("y_padding")
 
-        x_pos = round(x_pos * (win_obj.screen_width / win_obj.y_ceil))
-        y_pos = round(y_pos * (win_obj.screen_height / win_obj.x_ceil))
+        x_pos = round(x_pos * (win_obj.screen_width / win_obj.y_ceil)) + x_offset
+        y_pos = round(y_pos * (win_obj.screen_height / win_obj.x_ceil)) + y_offset
 
         if x_size is None or y_size is None:
             x_size = y_size = 0
         else:
-            x_size = round(x_size * (win_obj.screen_width / win_obj.y_ceil))
-            y_size = round(y_size * (win_obj.screen_height / win_obj.x_ceil))
+            x_size = round(x_size * (win_obj.screen_width / win_obj.y_ceil)) + x_padding
+            y_size = (
+                round(y_size * (win_obj.screen_height / win_obj.x_ceil)) + y_padding
+            )
 
         return pygame.Rect((x_pos, y_pos), (x_size, y_size))
 
