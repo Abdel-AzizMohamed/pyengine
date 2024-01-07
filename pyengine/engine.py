@@ -1,6 +1,7 @@
 """Project start point"""
 # pylint: disable=E1101
 # pylint: disable=W0511
+# pylint: disable=R0914
 ###### Python Packages ######
 import os
 import sys
