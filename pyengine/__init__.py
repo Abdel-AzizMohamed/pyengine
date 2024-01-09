@@ -21,3 +21,6 @@ os.environ["SDL_VIDEO_CENTERED"] = "1"
 DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "default_config.json")
 CONFIG_PATH = alternate_path("config.json", DEFAULT_CONFIG_PATH)
 win_obj = Window(read_json(CONFIG_PATH).get("window_data"))
+alpha_surface = pygame.Surface(
+    (win_obj.screen_width, win_obj.screen_height), pygame.SRCALPHA
+)

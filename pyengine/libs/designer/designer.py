@@ -9,7 +9,7 @@ from typing import Union
 import pygame
 
 ###### My Packages ######
-from pyengine import win_obj
+from pyengine import win_obj, alpha_surface
 from pyengine.libs.eventer.eventer import Eventer
 from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton
 from pyengine.libs.designer.py_sprite import PyImage
@@ -107,10 +107,7 @@ class Designer:
         ]
 
         for element in elements:
-            if element.opacity:
-                alpha_surface = pygame.Surface(
-                    (win_obj.screen_width, win_obj.screen_height), pygame.SRCALPHA
-                )
+            # if element.opacity:
             surface = alpha_surface if element.opacity else win_obj.screen
 
             if element.type == "PyRect":
@@ -133,8 +130,7 @@ class Designer:
                 y_pos = element.rect.y + element.align_y
                 surface.blit(element.font_render, (x_pos, y_pos))
 
-            if element.opacity:
-                win_obj.screen.blit(alpha_surface, (0, 0))
+        win_obj.screen.blit(alpha_surface, (0, 0))
 
     @staticmethod
     def toggle_exclude(group_name: str) -> None:
