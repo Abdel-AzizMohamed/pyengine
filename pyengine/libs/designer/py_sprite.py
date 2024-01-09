@@ -24,3 +24,4 @@ class PyImage(PyBase, PyImageBase, Rectangle, Text):
         PyImageBase.__init__(self, attributes.get("image_data"))
 
         self.rect.size = self.image.get_rect().size
+        self.opacity = attributes.get("obj_data").get("opacity")

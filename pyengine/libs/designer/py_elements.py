@@ -26,6 +26,7 @@ class PyRect(PyBase, Rectangle, Text):
         obj_data = attributes.get("obj_data")
 
         self.color = obj_data.get("color")
+        self.opacity = obj_data.get("opacity")
 
 
 class PyCircle(PyBase, Rectangle, Text):
@@ -48,6 +49,7 @@ class PyCircle(PyBase, Rectangle, Text):
         self.rect.size = (self.radius * 2, self.radius * 2)
 
         self.color = obj_data.get("color")
+        self.opacity = obj_data.get("opacity")
 
 
 class PyButton(PyBase, Rectangle, Text):
@@ -73,6 +75,8 @@ class PyButton(PyBase, Rectangle, Text):
         self.hover_color = obj_data.get("hover_color")
         self.select_color = obj_data.get("select_color")
         self.disabled_color = obj_data.get("disabled_color")
+
+        self.opacity = obj_data.get("opacity")
 
         Eventer.add_object_event(
             self,

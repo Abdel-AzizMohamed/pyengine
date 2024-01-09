@@ -1,3 +1,4 @@
+# pylint: disable=E1101
 """
 Define the designer package start point
 
@@ -106,25 +107,34 @@ class Designer:
         ]
 
         for element in elements:
+            if element.opacity:
+                alpha_surface = pygame.Surface(
+                    (win_obj.screen_width, win_obj.screen_height), pygame.SRCALPHA
+                )
+            surface = alpha_surface if element.opacity else win_obj.screen
+
             if element.type == "PyRect":
-                pygame.draw.rect(win_obj.screen, element.color, element.rect)
+                pygame.draw.rect(surface, element.color, element.rect)
 
             elif element.type == "PyCircle":
                 pygame.draw.circle(
-                    win_obj.screen,
+                    surface,
                     element.color,
                     element.rect.center,
                     element.radius,
                 )
             elif element.type == "PyButton":
-                pygame.draw.rect(win_obj.screen, element.active_color, element.rect)
+                pygame.draw.rect(surface, element.active_color, element.rect)
             elif element.type == "PyImage":
-                win_obj.screen.blit(element.image, element.rect)
+                surface.blit(element.image, element.rect)
 
             if getattr(element, "font_render"):
                 x_pos = element.rect.x + element.align_x
                 y_pos = element.rect.y + element.align_y
-                win_obj.screen.blit(element.font_render, (x_pos, y_pos))
+                surface.blit(element.font_render, (x_pos, y_pos))
+
+            if element.opacity:
+                win_obj.screen.blit(alpha_surface, (0, 0))
 
     @staticmethod
     def toggle_exclude(group_name: str) -> None:
