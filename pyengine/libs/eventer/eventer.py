@@ -1,11 +1,11 @@
 """Define game events handler"""
 #### Python Packages ####
-from importlib import import_module
 import pygame
 
 # pylint: disable=E1101
 #### My Packages ####
 from pyengine.utils.collision_handler import mouse_collision
+from pyengine.utils.import_handler import check_import
 
 
 class Eventer:
@@ -31,14 +31,7 @@ class Eventer:
             Eventer.elements_events[element.group] = []
 
         for event_data in events_data.values():
-            module_path, function_path = event_data.get("function_path").split(":")
-
-            if function_path.find(".") != -1:
-                str_class, str_func = function_path.split(".")
-                module_class = getattr(import_module(module_path), str_class)
-                module_function = getattr(module_class, str_func)
-            else:
-                module_function = getattr(import_module(module_path), function_path)
+            module_function = check_import(event_data.get("function_path"))
 
             Eventer.elements_events[element.group].append(
                 (module_function, event_data, element)
@@ -55,14 +48,7 @@ class Eventer:
         non_events = []
 
         for event in events.values():
-            module_path, function_path = event.get("function_path").split(":")
-
-            if function_path.find(".") != -1:
-                str_class, str_func = function_path.split(".")
-                module_class = getattr(import_module(module_path), str_class)
-                module_function = getattr(module_class, str_func)
-            else:
-                module_function = getattr(import_module(module_path), function_path)
+            module_function = check_import(event.get("function_path"))
 
             if event.get("event_type") == "none":
                 non_events.append((module_function, event))

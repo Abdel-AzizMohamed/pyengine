@@ -19,6 +19,8 @@ from pyengine.libs.designer.py_attributes import Text
 
 from pyengine.libs.devtools.devtools import DevTools
 
+from pyengine.libs.transition.transition import Transition
+
 from pyengine.utils.json_handler import read_json, write_json
 from pyengine.utils.collision_handler import object_collision
 from pyengine.utils.path_handler import walk_search
@@ -54,6 +56,7 @@ class PyEngine:
             debug: Display debugging tools
         """
         while True:
+            win_obj.set_delta()
             PyEngine.check_events(debug)
 
             for global_event in PyEngine.none_events:
@@ -68,6 +71,8 @@ class PyEngine:
                         function(*args)
                 else:
                     function(*args)
+
+            Transition.trigger_transition()
 
             Designer.draw_groups()
             if debug:

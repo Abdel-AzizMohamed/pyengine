@@ -10,9 +10,10 @@ import pygame
 
 ###### My Packages ######
 from pyengine import win_obj, alpha_surface, CONFIG_DATA
-from pyengine.libs.eventer.eventer import Eventer
 from pyengine.libs.designer.py_elements import PyRect, PyCircle, PyButton
 from pyengine.libs.designer.py_sprite import PyImage
+from pyengine.libs.eventer.eventer import Eventer
+from pyengine.libs.transition.transition import Transition
 
 from pyengine.utils.json_handler import read_json
 
@@ -55,12 +56,17 @@ class Designer:
 
         element = Designer.elements_classes[ele_class](element_attributes)
 
-        Eventer.add_object_event(element, event_data)
-
         if not Designer.game_elements.get(ele_group):
             Designer.game_elements[ele_group] = {}
             Designer.exclude_groups[ele_group] = 1
+
             Eventer.exclude_groups[ele_group] = 1
+
+            Transition.elements[ele_group] = []
+            Transition.exclude_groups[ele_group] = 1
+
+        Eventer.add_object_event(element, event_data)
+        Transition(element, element_attributes.get("transition_data"))
 
         Designer.game_elements.get(ele_group)[ele_name] = element
 
@@ -107,9 +113,13 @@ class Designer:
         ]
 
         for element in elements:
-            surface = alpha_surface if element.opacity else win_obj.screen
+            surface = (
+                alpha_surface
+                if element.opacity and CONFIG_DATA.get("window_data").get("alpha")
+                else win_obj.screen
+            )
 
-            if element.type == "PyRect":
+            if element.type == "PyRect" and element.color != "transparent":
                 pygame.draw.rect(surface, element.color, element.rect)
 
             elif element.type == "PyCircle":
@@ -119,7 +129,7 @@ class Designer:
                     element.rect.center,
                     element.radius,
                 )
-            elif element.type == "PyButton":
+            elif element.type == "PyButton" and element.base_color != "transparent":
                 pygame.draw.rect(surface, element.active_color, element.rect)
             elif element.type == "PyImage":
                 surface.blit(element.image, element.rect)

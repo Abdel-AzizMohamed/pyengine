@@ -1,5 +1,6 @@
 """Contains all the basic ui elements"""
 # pylint: disable=R0903
+# pylint: disable=R0902
 ###### Python Packages ######
 ###### My Packages ######
 from pyengine.libs.designer.py_base import PyBase

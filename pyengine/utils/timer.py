@@ -3,6 +3,7 @@ Contains main functions to work with time in pygame
 """
 # pylint: disable=E1101
 ###### Python Packages ######
+from typing import Union
 import pygame
 
 ###### My Packages ######
@@ -31,10 +32,10 @@ class Timer:
         self._start_time = self._duration + self._current_time
         self._timer_active = True
 
-    def check_timer(self) -> bool:
+    def check_timer(self) -> Union[bool, None]:
         """Checks if the timer is done"""
         if not self._timer_active:
-            return False
+            return None
         if self._start_time - self._current_time < 0:
             self._timer_active = False
             return True
