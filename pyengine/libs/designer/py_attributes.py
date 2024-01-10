@@ -105,7 +105,7 @@ class Text:
         data["align"] = text_data.get("align")
 
         self.font_render = data.get("font").render(
-            data.get("text"), data.get("color"), data.get("antialias")
+            data.get("text"), data.get("antialias"), data.get("color")
         )
         self._font_size = self.font_render.get_rect().size
 
