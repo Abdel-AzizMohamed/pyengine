@@ -60,7 +60,7 @@ class Transition:
         elements = [
             element
             for (name, group) in Transition.elements.items()
-            for element in group
+            for element in group.values()
             if Transition.exclude_groups.get(name)
         ]
 
