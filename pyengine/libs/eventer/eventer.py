@@ -143,6 +143,10 @@ class Eventer:
             return False
 
         key_action, key = event_type.split(":")
+        buttons = {"leftclick": 1, "middleclick": 2, "rightclick": 3}
+
+        if buttons.get(key) is not None:
+            return False
 
         if event.type == pygame.KEYDOWN and key_action == "down":
             if event.key == getattr(pygame, key):
