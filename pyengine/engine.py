@@ -3,9 +3,13 @@
 # pylint: disable=E1101
 # pylint: disable=W0511
 # pylint: disable=R0914
-###### Python Packages ######
+###### Python Built-in Packages ######
 import os
 import sys
+
+###### Type Hinting ######
+
+###### Python Packages ######
 import pygame
 
 ###### My Packages ######
@@ -25,8 +29,6 @@ from pyengine.libs.transition.transition import Transition
 from pyengine.utils.json_handler import read_json, write_json
 from pyengine.utils.collision_handler import object_collision
 from pyengine.utils.path_handler import walk_search
-
-#### Type Hinting ####
 
 
 class PyEngine:

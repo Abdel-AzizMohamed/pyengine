@@ -4,6 +4,7 @@
     "grid_precision_level": 2,
     "fps": 60,
     "window_title": "Engine",
+    "full_screen": true,
     "alpha": false
   },
   "fonts_data": {

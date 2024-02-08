@@ -1,22 +1,26 @@
 """
 Contains game window configuration & reconfiguration methods
 """
+
 # pylint: disable=E1101
 # pylint: disable=R0903
 # pylint: disable=W0511
-###### Python Packages ######
+###### Python Built-in Packages ######
 import time
+
+###### Type Hinting ######
+from typing import List
+
+###### Python Packages ######
 import pygame
 
 ###### My Packages ######
-
-#### Type Hinting ####
 
 
 class Resolution:
     """Defines helper class that contains resolution configuration"""
 
-    def __init__(self, size: list, grid_precision_level: int) -> None:
+    def __init__(self, size: List[int], grid_precision_level: int) -> None:
         """
         Init a new resolution object
 
@@ -35,7 +39,7 @@ class Resolution:
         self.set_ratio()
         self.set_grid_ceils(grid_precision_level)
 
-    def set_window_size(self, size: list) -> None:
+    def set_window_size(self, size: List[int]) -> None:
         """
         Sets the game window size according to size parameter
 
@@ -83,8 +87,6 @@ class Resolution:
 class FrameRate:
     """Defines helper class that contains framerate configuration"""
 
-    # TODO: add a way to change game fps during the run time
-
     def __init__(self, fps: int) -> None:
         """
         Init a new clock object
@@ -98,17 +100,13 @@ class FrameRate:
         self.previous_time = time.time()
 
     def set_delta(self) -> None:
-        """
-        Sets the game delta-time in each game cycle
-        """
+        """Sets the game delta-time in each cycle"""
         self.delta_time = time.time() - self.previous_time
         self.previous_time = time.time()
 
 
 class Window(Resolution, FrameRate):
     """Main window class that contains all the configuration"""
-
-    # TODO: add option to window data that sets the game to full screen
 
     def __init__(self, window_data: dict) -> None:
         """
@@ -122,9 +120,16 @@ class Window(Resolution, FrameRate):
         grid_precision_level = window_data.get("grid_precision_level")
         fps = window_data.get("fps")
         window_title = window_data.get("window_title")
+        full_screen = (
+            pygame.FULLSCREEN
+            if window_data.get("full_screen")
+            else pygame.SHOWN
+        )
 
         Resolution.__init__(self, window_size, grid_precision_level)
         FrameRate.__init__(self, fps)
 
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        self.screen = pygame.display.set_mode(
+            (self.screen_width, self.screen_height), full_screen
+        )
         pygame.display.set_caption(window_title)

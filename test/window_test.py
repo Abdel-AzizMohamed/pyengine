@@ -1,4 +1,5 @@
 """Contains unit-test for window file"""
+
 ###### Python Packages ######
 import time
 import pygame
@@ -7,8 +8,8 @@ import pygame
 from pyengine.window import FrameRate, Resolution
 
 
-def test_set_resolution():
-    """Test set_resolution method in Resolution class"""
+def test_set_window_size():
+    """Test set_window_size method in Resolution class"""
     screen_info = pygame.display.Info()
     monitor_width = screen_info.current_w
     monitor_height = screen_info.current_h
@@ -23,8 +24,20 @@ def test_set_resolution():
     assert full_res_obj.screen_height == monitor_height
 
 
-def test_set_grid():
-    """Test set_grid method in Resolution class"""
+def test_set_ratio():
+    """Test set_ratio method in Resolution class"""
+    screen_info = pygame.display.Info()
+    monitor_width = screen_info.current_w
+    monitor_height = screen_info.current_h
+
+    res_obj = Resolution([0, 0], 2)
+
+    assert res_obj.width_ratio == monitor_width / 1920
+    assert res_obj.height_ratio == monitor_height / 1080
+
+
+def test_set_grid_ceils():
+    """Test set_grid_ceils method in Resolution class"""
     res_obj = Resolution([0, 0], 4)
 
     assert res_obj.x_ceil == 4 * 9
