@@ -1,4 +1,5 @@
 """Define game Sound handler"""
+
 #### Python Packages ####
 import pygame
 
@@ -42,7 +43,7 @@ class Music:
     music = {}
 
     @staticmethod
-    def load_music(music: dict) -> None:
+    def load_music(music: dict, default_music: str) -> None:
         """
         Load all music from config file
 
@@ -52,6 +53,8 @@ class Music:
 
         for name, data in music.items():
             Music.music[name] = data
+        if default_music:
+            Music.play_music(default_music)
 
     @staticmethod
     def play_music(music_name: str) -> None:

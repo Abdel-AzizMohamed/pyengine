@@ -1,4 +1,5 @@
 """Project start point"""
+
 # pylint: disable=E1101
 # pylint: disable=W0511
 # pylint: disable=R0914
@@ -8,7 +9,7 @@ import sys
 import pygame
 
 ###### My Packages ######
-from pyengine import win_obj, CONFIG_PATH
+from pyengine import win_obj, CONFIG_DATA
 from pyengine.libs.mixer import Sound, Music
 
 from pyengine.libs.eventer.eventer import Eventer
@@ -25,7 +26,6 @@ from pyengine.utils.json_handler import read_json, write_json
 from pyengine.utils.collision_handler import object_collision
 from pyengine.utils.path_handler import walk_search
 
-# from pyengine.utils.errors_handler.data_checker import config_check, ui_check
 #### Type Hinting ####
 
 
@@ -50,7 +50,7 @@ class PyEngine:
     @staticmethod
     def mainloop(debug: bool) -> None:
         """
-        game mainloop
+        Game mainloop
 
         Arguments:
             debug: Display debugging tools
@@ -107,43 +107,33 @@ class PyEngine:
     def load_data() -> None:
         """Loads game data"""
         # TODO: Fix the data check and add it here before loading the data
-        # config_check(CONFIG_PATH)
-
-        # for file in walk_search("UiData"):
-        #     ui_check(file, CONFIG_PATH)
-
-        game_config = read_json(CONFIG_PATH)
-
-        fonts_data = game_config.get("fonts_data")
-        devtools_data = game_config.get("devtools_data")
-        events_data = game_config.get("events_data")
-        sounds_data = game_config.get("sounds_data")
-        music_data = game_config.get("music_data")
-        groups_data = game_config.get("groups_data")
-        default_data = game_config.get("default_data")
-        path_data = game_config.get("path_data")
+        fonts_data = CONFIG_DATA.get("fonts_data")
+        devtools_data = CONFIG_DATA.get("devtools_data")
+        events_data = CONFIG_DATA.get("events_data")
+        sounds_data = CONFIG_DATA.get("sounds_data")
+        music_data = CONFIG_DATA.get("music_data")
+        groups_data = CONFIG_DATA.get("groups_data")
+        default_data = CONFIG_DATA.get("default_data")
+        path_data = CONFIG_DATA.get("path_data")
 
         Text.load_fonts(fonts_data)
         DevTools.load_devtools(devtools_data)
         Sound.load_sounds(sounds_data)
-
-        Music.load_music(music_data)
-        if default_data.get("default_music"):
-            Music.play_music(default_data.get("default_music"))
+        Music.load_music(music_data, default_data.get("default_music"))
 
         for save_file_path in walk_search(path_data.get("save_data_path")):
-            save_file_name = os.path.splitext(os.path.basename(save_file_path))[0]
+            save_file_name = os.path.splitext(
+                os.path.basename(save_file_path)
+            )[0]
             save_file_data = read_json(save_file_path)
             PyEngine.save_data[save_file_name] = {
                 "data": save_file_data,
                 "path": save_file_path,
             }
 
-        images = {}
         for image_path in walk_search(path_data.get("sprites_path")):
             image_name = os.path.splitext(os.path.basename(image_path))[0]
-            images[image_name] = image_path
-        PyImageBase.load_images(images)
+            PyImageBase.load_image((image_name, image_path))
 
         for ui_file in walk_search(path_data.get("ui_data_path")):
             Designer.create_from_file(ui_file)

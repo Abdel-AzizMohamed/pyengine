@@ -1,13 +1,17 @@
 """Contains base classes for ui elements"""
+
 # pylint: disable=R0903
-###### Python Packages ######
+###### Python Built-in Packages ######
 import os
+
+#### Type Hinting ####
+from typing import Tuple
+
+###### Python Packages ######
 import pygame
 
 ###### My Packages ######
 from pyengine import win_obj
-
-#### Type Hinting ####
 
 
 class PyBase:
@@ -40,28 +44,29 @@ class PyImageBase:
         self.image = PyImageBase.loaded_images.get(attributes.get("image"))
 
     @staticmethod
-    def load_images(images: dict) -> None:
+    def load_image(image_data: Tuple[str, str]) -> None:
         """
-        Load all images
+        Load a given image
 
         Arguments:
-            images: dict contains images {font_path, font_size}
+            image_data: tuple contains image (image_name, image_path)
         """
-        for image_name, image_path in images.items():
-            if os.path.splitext(image_name)[1] == ".jpg":
-                image = pygame.image.load(image_path).convert()
-            else:
-                image = pygame.image.load(image_path).convert_alpha()
+        image_name, image_path = image_data
 
-            img_width = image.get_width()
-            img_height = image.get_height()
+        if os.path.splitext(image_name)[1] == ".jpg":
+            image = pygame.image.load(image_path).convert()
+        else:
+            image = pygame.image.load(image_path).convert_alpha()
 
-            image = pygame.transform.scale(
-                image,
-                (
-                    img_width * win_obj.width_ratio,
-                    img_height * win_obj.height_ratio,
-                ),
-            )
+        img_width = image.get_width()
+        img_height = image.get_height()
 
-            PyImageBase.loaded_images[image_name] = image
+        image = pygame.transform.scale(
+            image,
+            (
+                img_width * win_obj.width_ratio,
+                img_height * win_obj.height_ratio,
+            ),
+        )
+
+        PyImageBase.loaded_images[image_name] = image
