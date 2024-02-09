@@ -1,11 +1,16 @@
-# pylint: disable=E1101
 """
 Define the designer package start point
 
-that its main purpose is to work with the game graphics in much easier way
+that handle all game graphics in more easier way
 """
-###### Python Packages ######
+
+# pylint: disable=E1101
+###### Python Built-in Packages ######
+
+###### Type Hinting ######
 from typing import Union
+
+###### Python Packages ######
 import pygame
 
 ###### My Packages ######
@@ -16,8 +21,6 @@ from pyengine.libs.eventer.eventer import Eventer
 from pyengine.libs.transition.transition import Transition
 
 from pyengine.utils.json_handler import read_json
-
-#### Type Hinting ####
 
 
 class Designer:
@@ -41,7 +44,7 @@ class Designer:
     @staticmethod
     def create_element(element_attributes: dict) -> None:
         """
-        creates a new element from a given data
+        Creates a new element from a given data
 
         Arguments:
             element_attributes: element data (text, color, ...)
@@ -84,38 +87,70 @@ class Designer:
             Designer.create_element(element_data)
 
     @staticmethod
-    def get_element(name: str) -> Union[object, None]:
+    def get_element(element_name: str) -> Union[object, None]:
         """
-        Returns element with the given name else None if not found
+        Retrieve element object by the given name
 
         Arguments:
-            name: wanted element name
+            name: element name
+
+        Returns:
+            element object else None if not found
         """
 
         elements = [
-            (key, item)
+            (name, element)
             for group in Designer.game_elements.values()
-            for (key, item) in group.items()
+            for (name, element) in group.items()
         ]
-        for key, item in elements:
-            if key == name:
-                return item
+        for name, element in elements:
+            if name == element_name:
+                return element
         return None
+
+    @staticmethod
+    def remove_element(element_name: str) -> None:
+        """
+        Remove element by the given name
+
+        Arguments:
+            name: element name
+        """
+        for elements in Designer.game_elements.values():
+            if element_name in elements:
+                del elements[element_name]
+                break
+
+    @staticmethod
+    def toggle_exclude(group_name: str) -> None:
+        """
+        Toggle visibility by the given name
+
+        Arguments:
+            group_name: group name
+        """
+        if Designer.exclude_groups.get(group_name) == 1:
+            Designer.exclude_groups[group_name] = 0
+            Eventer.exclude_groups[group_name] = 0
+        else:
+            Designer.exclude_groups[group_name] = 1
+            Eventer.exclude_groups[group_name] = 1
 
     @staticmethod
     def draw_groups() -> None:
         """Draw all active groups"""
         elements = [
-            item
-            for (name, group) in Designer.game_elements.items()
-            for item in group.values()
-            if Designer.exclude_groups.get(name)
+            element_data
+            for (group_name, elements) in Designer.game_elements.items()
+            for element_data in elements.values()
+            if Designer.exclude_groups.get(group_name)
         ]
 
         for element in elements:
             surface = (
                 alpha_surface
-                if element.opacity and CONFIG_DATA.get("window_data").get("alpha")
+                if element.opacity
+                and CONFIG_DATA.get("window_data").get("alpha")
                 else win_obj.screen
             )
 
@@ -129,7 +164,10 @@ class Designer:
                     element.rect.center,
                     element.radius,
                 )
-            elif element.type == "PyButton" and element.base_color != "transparent":
+            elif (
+                element.type == "PyButton"
+                and element.base_color != "transparent"
+            ):
                 pygame.draw.rect(surface, element.active_color, element.rect)
             elif element.type == "PyImage":
                 surface.blit(element.image, element.rect)
@@ -141,31 +179,3 @@ class Designer:
 
         if CONFIG_DATA.get("window_data").get("alpha"):
             win_obj.screen.blit(alpha_surface, (0, 0))
-
-    @staticmethod
-    def toggle_exclude(group_name: str) -> None:
-        """
-        Toggle visibility of the given group name
-
-        Arguments:
-            group_name: wanted group name
-        """
-        if Designer.exclude_groups.get(group_name) == 1:
-            Designer.exclude_groups[group_name] = 0
-            Eventer.exclude_groups[group_name] = 0
-        else:
-            Designer.exclude_groups[group_name] = 1
-            Eventer.exclude_groups[group_name] = 1
-
-    @staticmethod
-    def remove_element(name: str) -> None:
-        """
-        Remove element with the given name
-
-        Arguments:
-            name: wanted element name
-        """
-        for elements in Designer.game_elements.values():
-            if name in elements:
-                del elements[name]
-                break

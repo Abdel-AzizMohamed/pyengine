@@ -1,7 +1,11 @@
 """Contains unit-test for window file"""
 
-###### Python Packages ######
+###### Python Built-in Packages ######
 import time
+
+###### Type Hinting ######
+
+###### Python Packages ######
 import pygame
 
 ###### My Packages ######

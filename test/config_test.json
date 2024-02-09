@@ -1,0 +1,60 @@
+{
+  "window_data": {
+    "window_size": [0, 0],
+    "grid_precision_level": 2,
+    "fps": 60,
+    "window_title": "Engine",
+    "full_screen": true,
+    "alpha": false
+  },
+  "fonts_data": {
+    "pixal_35": { "font_path": "test/font_test/Pixeltype.ttf", "font_size": 35 }
+  },
+  "devtools_data": {
+    "grid_color": "#ffffff",
+    "fps_font": "pixal_35",
+    "fps_antialias": false,
+    "fps_color": "#ffffff",
+    "fps_align": "topright",
+    "object_rect_color": "#ff0000",
+    "object_rect_size": 1
+  },
+  "events_data": {
+    "debug_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F1",
+      "args": ["all"]
+    },
+    "grid_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F10",
+      "args": ["show_grid"]
+    },
+    "fps_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F11",
+      "args": ["show_fps"]
+    },
+    "object_rect_toggle": {
+      "function_path": "pyengine.libs.devtools.devtools:DevTools.toggle_tool",
+      "event_type": "down:K_F12",
+      "args": ["show_object_rect"]
+    }
+  },
+  "sounds_data": {
+    "sfx": { "sound_path": "test/sound_test/sfx.ogg", "sound_volume": 0.2 }
+  },
+  "music_data": {},
+  "groups_data": {
+    "test_group": 1
+  },
+  "path_data": {
+    "save_data_path": "test/save_test",
+    "ui_data_path": "test/ui_test",
+    "sprites_path": "test/sprite_test"
+  },
+  "default_data": {
+    "default_music": "",
+    "default_auto_save": 10000
+  }
+}
