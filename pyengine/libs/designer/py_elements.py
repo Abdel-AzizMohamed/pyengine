@@ -1,13 +1,18 @@
-"""Contains all the basic ui elements"""
+"""Contains basic ui elements"""
+
 # pylint: disable=R0903
 # pylint: disable=R0902
+
+###### Python Built-in Packages ######
+
+###### Type Hinting ######
+
 ###### Python Packages ######
+
 ###### My Packages ######
 from pyengine.libs.designer.py_base import PyBase
 from pyengine.libs.designer.py_attributes import Rectangle, Text
 from pyengine.libs.eventer.eventer import Eventer
-
-#### Type Hinting ####
 
 
 class PyRect(PyBase, Rectangle, Text):
